@@ -17,6 +17,7 @@ from physicsLab import errors
 from physicsLab.enums import Tag, Category
 from physicsLab._typing import Optional, List, TypedDict, Callable, Awaitable
 
+
 async def _async_wrapper(func: Callable, *args, **kwargs):
     if sys.version_info < (3, 9):
         # copied from asyncio.to_thread
@@ -26,6 +27,7 @@ async def _async_wrapper(func: Callable, *args, **kwargs):
         return await loop.run_in_executor(None, func_call)
     else:
         return await asyncio.to_thread(func, *args, **kwargs)
+
 
 class _api_result(TypedDict):
     """物实api返回体的结构
@@ -66,7 +68,8 @@ def _check_response(
     if err_callback is not None:
         err_callback(status_code)
     raise errors.ResponseFail(
-        f"Physics-Lab-AR's server returned error code {status_code}: {response_json['Message']}"
+        response_json()["code"],
+        f"Physics-Lab-AR's server returned error code {status_code}: {response_json['Message']}",
     )
 
 
@@ -79,6 +82,7 @@ def get_start_page() -> _api_result:
     response = requests.get("https://physics-api-cn.turtlesim.com/Users")
 
     return _check_response(response)
+
 
 async def async_get_start_page() -> Awaitable[_api_result]:
     return await _async_wrapper(get_start_page)
@@ -162,6 +166,7 @@ async def async_get_avatar(
 ) -> Awaitable[_api_result]:
     return await _async_wrapper(get_avatar, target_id, index, category, size_category)
 
+
 class User:
     """该class仅提供阻塞的api"""
 
@@ -218,7 +223,6 @@ class User:
         self.verification = info["Data"]["User"]["Verification"]
         # 存储了所有与每日活动有关的奖励信息 (比如ActivityID)
         self.statistic: dict = info["Data"]["Statistic"]
-
 
     def get_library(self) -> _api_result:
         """获取社区作品列表
@@ -401,6 +405,7 @@ class User:
             skip,
             from_skip,
         )
+
     def get_experiment(
         self,
         content_id: str,
@@ -442,12 +447,14 @@ class User:
         )
 
         return _check_response(response)
+
     async def async_get_experiment(
         self,
         content_id: str,
         category: Optional[enums.Category] = None,
     ) -> Awaitable[_api_result]:
         return await _async_wrapper(self.get_experiment, content_id, category)
+
     def confirm_experiment(
         self, summary_id: str, category: Category, image_counter: int
     ) -> _api_result:
@@ -494,12 +501,14 @@ class User:
         )
 
         return _check_response(response)
+
     async def async_confirm_experiment(
         self, summary_id: str, category: enums.Category, image_counter: int
     ) -> Awaitable[_api_result]:
         return await _async_wrapper(
             self.confirm_experiment, summary_id, category, image_counter
         )
+
     def remove_experiment(
         self, summary_id: str, category: Category, reason: Optional[str] = None
     ) -> _api_result:
@@ -550,6 +559,7 @@ class User:
         )
 
         return _check_response(response)
+
     async def async_remove_experiment(
         self,
         summary_id: str,
@@ -559,6 +569,7 @@ class User:
         return await _async_wrapper(
             self.remove_experiment, summary_id, category, reason
         )
+
     def post_comment(
         self,
         target_id: str,
@@ -657,6 +668,7 @@ class User:
         )
 
         return _check_response(response)
+
     async def async_post_comment(
         self,
         target_id: str,
@@ -668,6 +680,7 @@ class User:
         return await _async_wrapper(
             self.post_comment, target_id, target_type, content, reply_id, special
         )
+
     def remove_comment(self, comment_id: str, target_type: str) -> _api_result:
         """删除评论
 
@@ -773,6 +786,7 @@ class User:
         )
 
         return _check_response(response)
+
     async def async_get_comments(
         self,
         target_id: str,
@@ -784,6 +798,7 @@ class User:
         return await _async_wrapper(
             self.get_comments, target_id, target_type, take, skip, comment_id
         )
+
     def get_summary(self, content_id: str, category: Category) -> _api_result:
         """获取实验介绍
 
@@ -821,14 +836,17 @@ class User:
                 raise PermissionError("login failed")
             if status_code == 404:
                 raise errors.ResponseFail(
-                    "experiment not found(may be you select category wrong)"
+                    response.json()["code"],
+                    "experiment not found(may be you select category wrong)",
                 )
 
         return _check_response(response, callback)
+
     async def async_get_summary(
         self, content_id: str, category: enums.Category
     ) -> Awaitable[_api_result]:
         return await _async_wrapper(self.get_summary, content_id, category)
+
     def get_derivatives(self, content_id: str, category: Category) -> _api_result:
         """获取作品的详细信息, 物实第一次读取作品会使用此接口
 
@@ -862,10 +880,68 @@ class User:
         )
 
         return _check_response(response)
+
     async def async_get_derivatives(
         self, content_id: str, category: enums.Category
     ) -> Awaitable[_api_result]:
         return await _async_wrapper(self.get_derivatives, content_id, category)
+
+    def get_user_by_name(self, name: str) -> _api_result:
+        """获取用户信息
+
+        Args:
+            name: 用户名
+
+        Returns:
+            _api_result: 物实api返回体结构
+        """
+        if not isinstance(name, str):
+            errors.type_error(
+                f"Parameter `name` must be of type `str`, but got value `{name}` of type `{type(name).__name__}`"
+            )
+        response = requests.post(
+            "https://physics-api-cn.turtlesim.com:443/Users/GetUser",
+            json={"Name": name},
+            headers={
+                "Content-Type": "application/json",
+                "x-API-Token": self.token,
+                "x-API-AuthCode": self.auth_code,
+            },
+        )
+
+        return _check_response(response)
+
+    async def async_get_user_by_name(self, name: str) -> Awaitable[_api_result]:
+        return await _async_wrapper(self.get_user_by_name, name)
+
+    def get_user_by_id(self, id: str) -> _api_result:
+        """获取用户信息
+
+        Args:
+            id: 用户ID
+
+        Returns:
+            _api_result: 物实api返回体结构
+        """
+        if not isinstance(id, str):
+            errors.type_error(
+                f"Parameter `id` must be of type `str`, but got value `{id}` of type `{type(id).__name__}`"
+            )
+        response = requests.post(
+            "https://physics-api-cn.turtlesim.com:443/Users/GetUser",
+            json={"ID": id},
+            headers={
+                "Content-Type": "application/json",
+                "x-API-Token": self.token,
+                "x-API-AuthCode": self.auth_code,
+            },
+        )
+
+        return _check_response(response)
+
+    async def async_get_user_by_id(self, id: str) -> Awaitable[_api_result]:
+        return await _async_wrapper(self.get_user_by_id, id)
+
     def get_user(
         self,
         msg: str,
@@ -879,6 +955,9 @@ class User:
 
         Returns:
             _api_result: 物实api返回体结构
+
+        Notes:
+            Only for compatibility, use `get_user_by_id` or `get_user_by_name` is recommended
         """
         if not isinstance(msg, str):
             errors.type_error(
@@ -891,23 +970,11 @@ class User:
             )
 
         if get_user_mode == enums.GetUserMode.by_id:
-            body = {"ID": msg}
+            return self.get_user_by_id(msg)
         elif get_user_mode == enums.GetUserMode.by_name:
-            body = {"Name": msg}
+            return self.get_user_by_name(msg)
         else:
             errors.unreachable()
-
-        response = requests.post(
-            "https://physics-api-cn.turtlesim.com:443/Users/GetUser",
-            json=body,
-            headers={
-                "Content-Type": "application/json",
-                "x-API-Token": self.token,
-                "x-API-AuthCode": self.auth_code,
-            },
-        )
-
-        return _check_response(response)
 
     async def async_get_user(
         self,
@@ -915,6 +982,7 @@ class User:
         get_user_mode: enums.GetUserMode,
     ) -> Awaitable[_api_result]:
         return await _async_wrapper(self.get_user, msg, get_user_mode)
+
     def get_profile(self) -> _api_result:
         """获取用户主页信息
 
@@ -989,6 +1057,7 @@ class User:
         )
 
         return _check_response(response)
+
     async def async_star_content(
         self,
         content_id: str,
@@ -999,6 +1068,7 @@ class User:
         return await _async_wrapper(
             self.star_content, content_id, category, star_type, status
         )
+
     def upload_image(
         self, policy: str, authorization: str, image_path: str
     ) -> _api_result:
@@ -1045,16 +1115,19 @@ class User:
             response.raise_for_status()
             if response.json()["code"] != 200:
                 raise errors.ResponseFail(
+                    response.json()["code"],
                     f"Physics-Lab-AR returned error code {response.json()['code']} : "
-                    f"{response.json()['message']}`"
+                    f"{response.json()['message']}`",
                 )
             return response.json()
+
     async def async_upload_image(
         self, policy: str, authorization: str, image_path: str
     ) -> Awaitable[_api_result]:
         return await _async_wrapper(
             self.upload_image, policy, authorization, image_path
         )
+
     def get_message(self, message_id: str) -> _api_result:
         """读取系统邮件消息
 
@@ -1082,8 +1155,10 @@ class User:
         )
 
         return _check_response(response)
+
     async def async_get_message(self, message_id: str) -> Awaitable[_api_result]:
         return await _async_wrapper(self.get_message, message_id)
+
     def get_messages(
         self,
         category_id: int,
@@ -1136,6 +1211,7 @@ class User:
         )
 
         return _check_response(response)
+
     async def async_get_messages(
         self,
         category_id: int,
@@ -1146,6 +1222,7 @@ class User:
         return await _async_wrapper(
             self.get_messages, category_id, skip, take, no_templates
         )
+
     def get_supporters(
         self,
         content_id: str,
@@ -1197,6 +1274,7 @@ class User:
         )
 
         return _check_response(response)
+
     async def async_get_supporters(
         self,
         content_id: str,
@@ -1207,6 +1285,7 @@ class User:
         return await _async_wrapper(
             self.get_supporters, content_id, category, skip, take
         )
+
     def get_relations(
         self,
         user_id: str,
@@ -1268,6 +1347,7 @@ class User:
         )
 
         return _check_response(response)
+
     async def async_get_relations(
         self,
         user_id: str,
@@ -1279,6 +1359,7 @@ class User:
         return await _async_wrapper(
             self.get_relations, user_id, display_type, skip, take, query
         )
+
     def follow(self, target_id: str, action: bool = True) -> _api_result:
         """关注用户
 
@@ -1312,10 +1393,12 @@ class User:
         )
 
         return _check_response(response)
+
     async def async_follow(
         self, target_id: str, action: bool = True
     ) -> Awaitable[_api_result]:
         return await _async_wrapper(self.follow, target_id, action)
+
     def rename(self, nickname: str) -> _api_result:
         """修改用户昵称
 
@@ -1344,8 +1427,10 @@ class User:
         )
 
         return _check_response(response)
+
     async def async_rename(self, nickname: str) -> Awaitable[_api_result]:
         return await _async_wrapper(self.rename, nickname)
+
     def modify_information(self, target: str) -> _api_result:
         """修改用户签名
 
@@ -1374,8 +1459,10 @@ class User:
         )
 
         return _check_response(response)
+
     async def async_modify_information(self, target: str) -> Awaitable[_api_result]:
         return await _async_wrapper(self.modify_information, target)
+
     def receive_bonus(self, activity_id: str, index: int) -> _api_result:
         """领取每日签到奖励
 
@@ -1414,10 +1501,12 @@ class User:
         )
 
         return _check_response(response)
+
     async def async_receive_bonus(
         self, activity_id: str, index: int
     ) -> Awaitable[_api_result]:
         return await _async_wrapper(self.receive_bonus, activity_id, index)
+
     def ban(self, target_id: str, reason: str, length: int) -> _api_result:
         """封禁用户
 
@@ -1460,10 +1549,12 @@ class User:
         )
 
         return _check_response(response)
+
     async def async_ban(
         self, target_id: str, reason: str, length: int
     ) -> Awaitable[_api_result]:
         return await _async_wrapper(self.ban, target_id, reason, length)
+
     def unban(self, target_id: str, reason: str) -> _api_result:
         """解除封禁
 
@@ -1497,6 +1588,7 @@ class User:
         )
 
         return _check_response(response)
+
     async def async_unban(self, target_id: str, reason: str) -> Awaitable[_api_result]:
         return await _async_wrapper(self.unban, target_id, reason)
 
