@@ -12,6 +12,8 @@ if __name__ == "__main__":
             dirs.remove("__pycache__")
         if "mido" in dirs:
             dirs.remove("mido")
+        if "vendor" in dirs:
+            dirs.remove("vendor")
         for file in files:
             len_py_file += 1
             with open(os.path.join(root, file), encoding="utf-8") as f:

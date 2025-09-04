@@ -1499,7 +1499,7 @@ class User:
         return _check_response(response)
     async def async_unban(self, target_id: str, reason: str) -> Awaitable[_api_result]:
         return await _async_wrapper(self.unban, target_id, reason)
-    
+
 
 def anonymous_login() -> User:
     """匿名登录物实"""
