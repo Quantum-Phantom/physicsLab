@@ -11,7 +11,6 @@ from ._api import _User, get_avatar, get_start_page, _check_response, _api_resul
 from physicsLab import plAR
 from physicsLab import enums
 from physicsLab import errors
-from physicsLab.enums import Tag, Category
 from physicsLab._typing import Callable, Optional, List, Awaitable
 
 
@@ -75,9 +74,9 @@ class User(_User):
 
     async def async_query_experiments(
         self,
-        category: Category,
-        tags: Optional[List[Tag]] = None,
-        exclude_tags: Optional[List[Tag]] = None,
+        category: enums.Category,
+        tags: Optional[List[enums.Tag]] = None,
+        exclude_tags: Optional[List[enums.Tag]] = None,
         languages: Optional[List[str]] = None,
         exclude_languages: Optional[List[str]] = None,
         user_id: Optional[str] = None,
@@ -101,12 +100,12 @@ class User(_User):
     async def async_get_experiment(
         self,
         content_id: str,
-        category: Optional[Category] = None,
+        category: Optional[enums.Category] = None,
     ) -> Awaitable[_api_result]:
         return await _async_wrapper(self.get_experiment, content_id, category)
 
     async def async_confirm_experiment(
-        self, summary_id: str, category: Category, image_counter: int
+        self, summary_id: str, category: enums.Category, image_counter: int
     ) -> Awaitable[_api_result]:
         return await _async_wrapper(
             self.confirm_experiment, summary_id, category, image_counter
@@ -115,7 +114,7 @@ class User(_User):
     async def async_remove_experiment(
         self,
         summary_id: str,
-        category: Category,
+        category: enums.Category,
         reason: Optional[str] = None,
     ) -> Awaitable[_api_result]:
         return await _async_wrapper(
@@ -152,12 +151,12 @@ class User(_User):
         )
 
     async def async_get_summary(
-        self, content_id: str, category: Category
+        self, content_id: str, category: enums.Category
     ) -> Awaitable[_api_result]:
         return await _async_wrapper(self.get_summary, content_id, category)
 
     async def async_get_derivatives(
-        self, content_id: str, category: Category
+        self, content_id: str, category: enums.Category
     ) -> Awaitable[_api_result]:
         return await _async_wrapper(self.get_derivatives, content_id, category)
 
@@ -174,7 +173,7 @@ class User(_User):
     async def async_star_content(
         self,
         content_id: str,
-        category: Category,
+        category: enums.Category,
         star_type: int,
         status: bool = True,
     ) -> Awaitable[_api_result]:
@@ -206,7 +205,7 @@ class User(_User):
     async def async_get_supporters(
         self,
         content_id: str,
-        category: Category,
+        category: enums.Category,
         skip: int = 0,
         take: int = 16,
     ) -> Awaitable[_api_result]:

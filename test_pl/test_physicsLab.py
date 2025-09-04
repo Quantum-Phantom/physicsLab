@@ -68,7 +68,7 @@ class BasicTest(TestCase, ViztracerTool):
     @my_test_dec
     def test_load_from_app(self):
         def task1():
-            with Experiment(OpenMode.load_by_plar_app, "6774ffb4c45f930f41ccedf8", Category.Discussion, user=user) as expe:
+            with Experiment(OpenMode.load_by_plar_app, "6774ffb4c45f930f41ccedf8", Category.Discussion) as expe:
                 self.assertTrue(expe.get_elements_count() == 91)
                 expe.save(target_path=os.devnull)
                 expe.close()

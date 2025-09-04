@@ -11,6 +11,7 @@ from physicsLab import circuit
 from physicsLab import celestial
 from physicsLab import electromagnetism
 from .web._api import _User
+from .web.api import anonymous_login
 from .savTemplate import Generate
 from .circuit._circuit_core import crt_wire, Pin
 from .enums import ExperimentType, Category, OpenMode, WireColor
@@ -85,9 +86,14 @@ def search_experiment(sav_name: str) -> Tuple[Optional[str], Optional[dict]]:
     return None, None
 
 
-class Experiment(_Experiment):
-    _user: Optional[_User] = None
+class CircuitExperiment(_Experiment):
+    """Experimental support for circuit experiment"""
+    Wires: set
+    _is_elementXYZ: bool
+    _elementXYZ_origin_position: _tools.position
 
+
+class Experiment(_Experiment):
     @overload
     def __init__(self, open_mode: OpenMode, filepath: Union[str, pathlib.Path]) -> None:
         """根据存档对应的文件路径打开存档
@@ -249,13 +255,11 @@ class Experiment(_Experiment):
             user = kwargs.get("user")
             if not isinstance(user, (_User, type(None))):
                 errors.type_error(
-                    f"Parameter user must be of type `_User | None`, but got `{type(user).__name__}`"
+                    f"Parameter user must be of type `User | None`, but got `{type(user).__name__}`"
                 )
 
             if user is None:
-                if Experiment._user is None:
-                    Experiment._user = _User()
-                user = Experiment._user
+                user = anonymous_login()
 
             self.SAV_PATH = os.path.join(_Experiment.SAV_PATH_DIR, f"{content_id}.sav")
             if _ExperimentStack.inside(self):

@@ -215,9 +215,10 @@ class ExperimentsIter:
             errors.type_error(
                 f"Parameter `max_workers` must be of type `int`, but got value `{max_workers}` of type `{type(max_workers).__name__}`"
             )
-        if not isinstance(exclude_languages, type(None)) and (not isinstance(exclude_languages, list) or not all(
-            isinstance(tag, str) for tag in exclude_languages
-        )):
+        if not isinstance(exclude_languages, type(None)) and (
+            not isinstance(exclude_languages, list)
+            or not all(isinstance(tag, str) for tag in exclude_languages)
+        ):
             errors.type_error(
                 f"Parameter `exclude_languages` must be of type `Optional[List[str]]`, but got value `{exclude_languages}` of type `{type(exclude_languages).__name__}`"
             )
