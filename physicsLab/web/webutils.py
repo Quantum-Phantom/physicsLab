@@ -4,7 +4,7 @@ import time
 import urllib3
 import requests
 
-from ._api import _User, get_avatar
+from .api import User, get_avatar
 from ._threadpool import ThreadPool, _Task
 from physicsLab import errors
 from physicsLab.enums import Category, Tag, GetUserMode
@@ -55,7 +55,7 @@ class NotificationsIter:
 
     def __init__(
         self,
-        user: _User,
+        user: User,
         category_id: int,
         start_skip: int = 0,
         max_retry: Optional[int] = 0,
@@ -68,7 +68,7 @@ class NotificationsIter:
         @param max_retry: 单个请求失败后最多重试次数, 默认为0, 即不重试, None为无限次数重试(不推荐)
         @param max_workers: 最大线程数
         """
-        if not isinstance(user, _User):
+        if not isinstance(user, User):
             errors.type_error(
                 f"Parameter `user` must be of type `User`, but got value `{user}` of type `{type(user).__name__}`"
             )
@@ -138,7 +138,7 @@ class ExperimentsIter:
 
     def __init__(
         self,
-        user: _User,
+        user: User,
         category: Category,
         start_skip: int = 0,
         from_skip: Optional[str] = None,
@@ -163,7 +163,7 @@ class ExperimentsIter:
             errors.type_error(
                 f"Parameter `category` must be of type `Category`, but got value `{category}` of type `{type(category).__name__}`"
             )
-        if not isinstance(user, _User):
+        if not isinstance(user, User):
             errors.type_error(
                 f"Parameter `user` must be of type `User`, but got value `{user}` of type `{type(user).__name__}`"
             )
@@ -269,7 +269,7 @@ class BannedMsgIter:
 
     def __init__(
         self,
-        user: _User,
+        user: User,
         start_skip: int = 0,
         start_time: Optional[num_type] = None,
         end_time: Optional[num_type] = None,
@@ -288,7 +288,7 @@ class BannedMsgIter:
                 模板可能会被紫兰斋修改, 但消息模板基本都是稳定的
         @param max_workers: 最大线程数
         """
-        if not isinstance(user, _User):
+        if not isinstance(user, User):
             errors.type_error(
                 f"Parameter `user` must be of type `User`, but got value `{user}` of type `{type(user).__name__}`"
             )
@@ -380,7 +380,7 @@ class CommentsIter:
 
     def __init__(
         self,
-        user: _User,
+        user: User,
         content_id: str,
         category: str = "User",
         start_time: int = 0,
@@ -392,7 +392,7 @@ class CommentsIter:
         @param start_time: 起始查询评论的时间, 默认是最新的评论往下遍历到最后一条评论
         @param: max_retry: 网络请求失败时重试的次数
         """
-        if not isinstance(user, _User):
+        if not isinstance(user, User):
             errors.type_error(
                 f"Parameter `user` must be of type `User`, but got value `{user}` of type `{type(user).__name__}`"
             )
@@ -449,7 +449,7 @@ class WarnedMsgIter:
 
     def __init__(
         self,
-        user: _User,
+        user: User,
         user_id: str,
         start_time: num_type,
         end_time: Optional[num_type] = None,
@@ -462,7 +462,7 @@ class WarnedMsgIter:
         @param end_time: 结束时间, None为当前时间
         @param banned_message_callback: 封禁记录回调函数
         """
-        if not isinstance(user, _User):
+        if not isinstance(user, User):
             errors.type_error(
                 f"Parameter `user` must be of type `User`, but got value `{user}` of type `{type(user).__name__}`"
             )
@@ -527,7 +527,7 @@ class RelationsIter:
 
     def __init__(
         self,
-        user: _User,
+        user: User,
         user_id: str,
         display_type: str = "Follower",
         max_retry: Optional[int] = 0,
@@ -543,7 +543,7 @@ class RelationsIter:
         @param amount: Follower/Following的数量, 为None时api将自动查询
         @param max_workers: 最大线程数
         """
-        if not isinstance(user, _User):
+        if not isinstance(user, User):
             errors.type_error(
                 f"Parameter `user` must be of type `User`, but got value `{user}` of type `{type(user).__name__}`"
             )
@@ -620,7 +620,7 @@ class AvatarsIter:
 
     def __init__(
         self,
-        user: _User,
+        user: User,
         /,
         *,
         target_id: str,
@@ -650,7 +650,7 @@ class AvatarsIter:
             errors.type_error(
                 f"Parameter `size_category` must be of type `str`, but got value `{size_category}` of type `{type(size_category).__name__}`"
             )
-        if not isinstance(user, _User):
+        if not isinstance(user, User):
             errors.type_error(
                 f"Parameter `user` must be of type `User`, but got value `{user}` of type `{type(user).__name__}`"
             )

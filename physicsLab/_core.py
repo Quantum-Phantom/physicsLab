@@ -20,7 +20,7 @@ from physicsLab import _tools
 from physicsLab import _warn
 from physicsLab import errors
 from physicsLab import _colorUtils
-from .web._api import _User, _check_response
+from .web.api import User, _check_response
 from .enums import Category, Tag, ExperimentType, OpenMode
 from ._typing import (
     Optional,
@@ -542,14 +542,14 @@ class _Experiment:
 
     def __upload(
         self,
-        user: _User,
+        user: User,
         category: Optional[Category],
         image_path: Optional[str],
     ):
         if (
             not isinstance(image_path, (str, type(None)))
             or not isinstance(category, (Category, type(None)))
-            or not isinstance(user, _User)
+            or not isinstance(user, User)
         ):
             errors.type_error()
         if image_path is not None and (
@@ -628,7 +628,7 @@ class _Experiment:
     @_check_not_closed
     def upload(
         self,
-        user: _User,
+        user: User,
         category: Category,
         image_path: Optional[str] = None,
     ) -> Self:
@@ -674,7 +674,7 @@ class _Experiment:
     @_check_not_closed
     def update(
         self,
-        user: _User,
+        user: User,
         image_path: Optional[str] = None,
     ) -> Self:
         """更新实验到物实

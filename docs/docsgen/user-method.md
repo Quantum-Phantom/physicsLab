@@ -1,7 +1,7 @@
 
 ## 封禁用户
 ```Python
-def ban(self, target_id: str, reason: str, length: int) -> physicsLab.web._api._api_result
+def ban(self, target_id: str, reason: str, length: int) -> physicsLab.web.api._api_result
 ```
 
 Args:
@@ -14,12 +14,12 @@ Returns:
 
 对应的协程风格的api:
 ```Python
-async def async_ban(self, target_id: str, reason: str, length: int) -> Awaitable[physicsLab.web._api._api_result]
+async def async_ban(self, target_id: str, reason: str, length: int) -> Awaitable[physicsLab.web.api._api_result]
 ```
 
 ## 确认发布实验
 ```Python
-def confirm_experiment(self, summary_id: str, category: physicsLab.enums.Category, image_counter: int) -> physicsLab.web._api._api_result
+def confirm_experiment(self, summary_id: str, category: physicsLab.enums.Category, image_counter: int) -> physicsLab.web.api._api_result
 ```
 
 Args:
@@ -36,12 +36,12 @@ Notes:
 
 对应的协程风格的api:
 ```Python
-async def async_confirm_experiment(self, summary_id: str, category: physicsLab.enums.Category, image_counter: int) -> Awaitable[physicsLab.web._api._api_result]
+async def async_confirm_experiment(self, summary_id: str, category: physicsLab.enums.Category, image_counter: int) -> Awaitable[physicsLab.web.api._api_result]
 ```
 
 ## 关注用户
 ```Python
-def follow(self, target_id: str, action: bool = True) -> physicsLab.web._api._api_result
+def follow(self, target_id: str, action: bool = True) -> physicsLab.web.api._api_result
 ```
 
 Args:
@@ -53,12 +53,12 @@ Returns:
 
 对应的协程风格的api:
 ```Python
-async def async_follow(self, target_id: str, action: bool = True) -> Awaitable[physicsLab.web._api._api_result]
+async def async_follow(self, target_id: str, action: bool = True) -> Awaitable[physicsLab.web.api._api_result]
 ```
 
 ## 获取评论板信息
 ```Python
-def get_comments(self, target_id: str, target_type: str, take: int = 16, skip: int = 0, comment_id: Optional[str] = None) -> physicsLab.web._api._api_result
+def get_comments(self, target_id: str, target_type: str, take: int = 16, skip: int = 0, comment_id: Optional[str] = None) -> physicsLab.web.api._api_result
 ```
 
 Args:
@@ -73,12 +73,12 @@ Returns:
 
 对应的协程风格的api:
 ```Python
-async def async_get_comments(self, target_id: str, target_type: str, take: int = 16, skip: int = 0, comment_id: Optional[str] = None) -> Awaitable[physicsLab.web._api._api_result]
+async def async_get_comments(self, target_id: str, target_type: str, take: int = 16, skip: int = 0, comment_id: Optional[str] = None) -> Awaitable[physicsLab.web.api._api_result]
 ```
 
 ## 获取作品的详细信息, 物实第一次读取作品会使用此接口
 ```Python
-def get_derivatives(self, content_id: str, category: physicsLab.enums.Category) -> physicsLab.web._api._api_result
+def get_derivatives(self, content_id: str, category: physicsLab.enums.Category) -> physicsLab.web.api._api_result
 ```
 
 Args:
@@ -90,12 +90,12 @@ Returns:
 
 对应的协程风格的api:
 ```Python
-async def async_get_derivatives(self, content_id: str, category: physicsLab.enums.Category) -> Awaitable[physicsLab.web._api._api_result]
+async def async_get_derivatives(self, content_id: str, category: physicsLab.enums.Category) -> Awaitable[physicsLab.web.api._api_result]
 ```
 
 ## 获取实验
 ```Python
-def get_experiment(self, content_id: str, category: Optional[physicsLab.enums.Category] = None) -> physicsLab.web._api._api_result
+def get_experiment(self, content_id: str, category: Optional[physicsLab.enums.Category] = None) -> physicsLab.web.api._api_result
 ```
 
 Args:
@@ -108,12 +108,12 @@ Returns:
 
 对应的协程风格的api:
 ```Python
-async def async_get_experiment(self, content_id: str, category: Optional[physicsLab.enums.Category] = None) -> Awaitable[physicsLab.web._api._api_result]
+async def async_get_experiment(self, content_id: str, category: Optional[physicsLab.enums.Category] = None) -> Awaitable[physicsLab.web.api._api_result]
 ```
 
 ## 获取社区作品列表
 ```Python
-def get_library(self) -> physicsLab.web._api._api_result
+def get_library(self) -> physicsLab.web.api._api_result
 ```
 
 Returns:
@@ -121,12 +121,12 @@ Returns:
 
 对应的协程风格的api:
 ```Python
-async def async_get_library(self) -> Awaitable[physicsLab.web._api._api_result]
+async def async_get_library(self) -> Awaitable[physicsLab.web.api._api_result]
 ```
 
 ## 读取系统邮件消息
 ```Python
-def get_message(self, message_id: str) -> physicsLab.web._api._api_result
+def get_message(self, message_id: str) -> physicsLab.web.api._api_result
 ```
 
 Args:
@@ -137,12 +137,12 @@ Returns:
 
 对应的协程风格的api:
 ```Python
-async def async_get_message(self, message_id: str) -> Awaitable[physicsLab.web._api._api_result]
+async def async_get_message(self, message_id: str) -> Awaitable[physicsLab.web.api._api_result]
 ```
 
 ## 获取用户收到的消息
 ```Python
-def get_messages(self, category_id: int, skip: int = 0, take: int = 16, no_templates: bool = True) -> physicsLab.web._api._api_result
+def get_messages(self, category_id: int, skip: int = 0, take: int = 16, no_templates: bool = True) -> physicsLab.web.api._api_result
 ```
 
 Args:
@@ -157,12 +157,12 @@ Returns:
 
 对应的协程风格的api:
 ```Python
-async def async_get_messages(self, category_id: int, skip: int = 0, take: int = 16, no_templates: bool = True) -> Awaitable[physicsLab.web._api._api_result]
+async def async_get_messages(self, category_id: int, skip: int = 0, take: int = 16, no_templates: bool = True) -> Awaitable[physicsLab.web.api._api_result]
 ```
 
 ## 获取用户主页信息
 ```Python
-def get_profile(self) -> physicsLab.web._api._api_result
+def get_profile(self) -> physicsLab.web.api._api_result
 ```
 
 Returns:
@@ -170,12 +170,12 @@ Returns:
 
 对应的协程风格的api:
 ```Python
-async def async_get_profile(self) -> Awaitable[physicsLab.web._api._api_result]
+async def async_get_profile(self) -> Awaitable[physicsLab.web.api._api_result]
 ```
 
 ## 获取用户的关注/粉丝列表
 ```Python
-def get_relations(self, user_id: str, display_type: str = 'Follower', skip: int = 0, take: int = 20, query: str = '') -> physicsLab.web._api._api_result
+def get_relations(self, user_id: str, display_type: str = 'Follower', skip: int = 0, take: int = 20, query: str = '') -> physicsLab.web.api._api_result
 ```
 
 Args:
@@ -190,12 +190,12 @@ Returns:
 
 对应的协程风格的api:
 ```Python
-async def async_get_relations(self, user_id: str, display_type: str = 'Follower', skip: int = 0, take: int = 20, query: str = '') -> Awaitable[physicsLab.web._api._api_result]
+async def async_get_relations(self, user_id: str, display_type: str = 'Follower', skip: int = 0, take: int = 20, query: str = '') -> Awaitable[physicsLab.web.api._api_result]
 ```
 
 ## 获取实验介绍
 ```Python
-def get_summary(self, content_id: str, category: physicsLab.enums.Category) -> physicsLab.web._api._api_result
+def get_summary(self, content_id: str, category: physicsLab.enums.Category) -> physicsLab.web.api._api_result
 ```
 
 Args:
@@ -207,12 +207,12 @@ Returns:
 
 对应的协程风格的api:
 ```Python
-async def async_get_summary(self, content_id: str, category: physicsLab.enums.Category) -> Awaitable[physicsLab.web._api._api_result]
+async def async_get_summary(self, content_id: str, category: physicsLab.enums.Category) -> Awaitable[physicsLab.web.api._api_result]
 ```
 
 ## 获取支持列表
 ```Python
-def get_supporters(self, content_id: str, category: physicsLab.enums.Category, skip: int = 0, take: int = 16) -> physicsLab.web._api._api_result
+def get_supporters(self, content_id: str, category: physicsLab.enums.Category, skip: int = 0, take: int = 16) -> physicsLab.web.api._api_result
 ```
 
 Args:
@@ -226,12 +226,12 @@ Returns:
 
 对应的协程风格的api:
 ```Python
-async def async_get_supporters(self, content_id: str, category: physicsLab.enums.Category, skip: int = 0, take: int = 16) -> Awaitable[physicsLab.web._api._api_result]
+async def async_get_supporters(self, content_id: str, category: physicsLab.enums.Category, skip: int = 0, take: int = 16) -> Awaitable[physicsLab.web.api._api_result]
 ```
 
 ## 获取用户信息
 ```Python
-def get_user(self, msg: str, get_user_mode: physicsLab.enums.GetUserMode) -> physicsLab.web._api._api_result
+def get_user(self, msg: str, get_user_mode: physicsLab.enums.GetUserMode) -> physicsLab.web.api._api_result
 ```
 
 Args:
@@ -243,12 +243,12 @@ Returns:
 
 对应的协程风格的api:
 ```Python
-async def async_get_user(self, msg: str, get_user_mode: physicsLab.enums.GetUserMode) -> Awaitable[physicsLab.web._api._api_result]
+async def async_get_user(self, msg: str, get_user_mode: physicsLab.enums.GetUserMode) -> Awaitable[physicsLab.web.api._api_result]
 ```
 
 ## 修改用户签名
 ```Python
-def modify_information(self, target: str) -> physicsLab.web._api._api_result
+def modify_information(self, target: str) -> physicsLab.web.api._api_result
 ```
 
 Args:
@@ -259,12 +259,12 @@ Returns:
 
 对应的协程风格的api:
 ```Python
-async def async_modify_information(self, target: str) -> Awaitable[physicsLab.web._api._api_result]
+async def async_modify_information(self, target: str) -> Awaitable[physicsLab.web.api._api_result]
 ```
 
 ## 发表评论
 ```Python
-def post_comment(self, target_id: str, target_type: str, content: str, reply_id: Optional[str] = None, special: Optional[str] = None) -> physicsLab.web._api._api_result
+def post_comment(self, target_id: str, target_type: str, content: str, reply_id: Optional[str] = None, special: Optional[str] = None) -> physicsLab.web.api._api_result
 ```
 
 Args:
@@ -279,12 +279,12 @@ Returns:
 
 对应的协程风格的api:
 ```Python
-async def async_post_comment(self, target_id: str, target_type: str, content: str, reply_id: Optional[str] = None, special: Optional[str] = None) -> Awaitable[physicsLab.web._api._api_result]
+async def async_post_comment(self, target_id: str, target_type: str, content: str, reply_id: Optional[str] = None, special: Optional[str] = None) -> Awaitable[physicsLab.web.api._api_result]
 ```
 
 ## 查询实验
 ```Python
-def query_experiments(self, category: physicsLab.enums.Category, tags: Optional[List[physicsLab.enums.Tag]] = None, exclude_tags: Optional[List[physicsLab.enums.Tag]] = None, languages: Optional[List[str]] = None, exclude_languages: Optional[List[str]] = None, user_id: Optional[str] = None, take: int = 20, skip: int = 0, from_skip: Optional[str] = None) -> physicsLab.web._api._api_result
+def query_experiments(self, category: physicsLab.enums.Category, tags: Optional[List[physicsLab.enums.Tag]] = None, exclude_tags: Optional[List[physicsLab.enums.Tag]] = None, languages: Optional[List[str]] = None, exclude_languages: Optional[List[str]] = None, user_id: Optional[str] = None, take: int = 20, skip: int = 0, from_skip: Optional[str] = None) -> physicsLab.web.api._api_result
 ```
 
 Args:
@@ -303,12 +303,12 @@ Returns:
 
 对应的协程风格的api:
 ```Python
-async def async_query_experiments(self, category: physicsLab.enums.Category, tags: Optional[List[physicsLab.enums.Tag]] = None, exclude_tags: Optional[List[physicsLab.enums.Tag]] = None, languages: Optional[List[str]] = None, exclude_languages: Optional[List[str]] = None, user_id: Optional[str] = None, take: int = 20, skip: int = 0, from_skip: Optional[str] = None) -> Awaitable[physicsLab.web._api._api_result]
+async def async_query_experiments(self, category: physicsLab.enums.Category, tags: Optional[List[physicsLab.enums.Tag]] = None, exclude_tags: Optional[List[physicsLab.enums.Tag]] = None, languages: Optional[List[str]] = None, exclude_languages: Optional[List[str]] = None, user_id: Optional[str] = None, take: int = 20, skip: int = 0, from_skip: Optional[str] = None) -> Awaitable[physicsLab.web.api._api_result]
 ```
 
 ## 领取每日签到奖励
 ```Python
-def receive_bonus(self, activity_id: str, index: int) -> physicsLab.web._api._api_result
+def receive_bonus(self, activity_id: str, index: int) -> physicsLab.web.api._api_result
 ```
 
 Args:
@@ -320,12 +320,12 @@ Returns:
 
 对应的协程风格的api:
 ```Python
-async def async_receive_bonus(self, activity_id: str, index: int) -> Awaitable[physicsLab.web._api._api_result]
+async def async_receive_bonus(self, activity_id: str, index: int) -> Awaitable[physicsLab.web.api._api_result]
 ```
 
 ## 删除评论
 ```Python
-def remove_comment(self, comment_id: str, target_type: str) -> physicsLab.web._api._api_result
+def remove_comment(self, comment_id: str, target_type: str) -> physicsLab.web.api._api_result
 ```
 
 Args:
@@ -337,12 +337,12 @@ Returns:
 
 对应的协程风格的api:
 ```Python
-async def async_remove_comment(self, comment_id: str, target_type: str) -> Awaitable[physicsLab.web._api._api_result]
+async def async_remove_comment(self, comment_id: str, target_type: str) -> Awaitable[physicsLab.web.api._api_result]
 ```
 
 ## 隐藏实验
 ```Python
-def remove_experiment(self, summary_id: str, category: physicsLab.enums.Category, reason: Optional[str] = None) -> physicsLab.web._api._api_result
+def remove_experiment(self, summary_id: str, category: physicsLab.enums.Category, reason: Optional[str] = None) -> physicsLab.web.api._api_result
 ```
 
 Args:
@@ -355,12 +355,12 @@ Returns:
 
 对应的协程风格的api:
 ```Python
-async def async_remove_experiment(self, summary_id: str, category: physicsLab.enums.Category, reason: Optional[str] = None) -> Awaitable[physicsLab.web._api._api_result]
+async def async_remove_experiment(self, summary_id: str, category: physicsLab.enums.Category, reason: Optional[str] = None) -> Awaitable[physicsLab.web.api._api_result]
 ```
 
 ## 修改用户昵称
 ```Python
-def rename(self, nickname: str) -> physicsLab.web._api._api_result
+def rename(self, nickname: str) -> physicsLab.web.api._api_result
 ```
 
 Args:
@@ -371,12 +371,12 @@ Returns:
 
 对应的协程风格的api:
 ```Python
-async def async_rename(self, nickname: str) -> Awaitable[physicsLab.web._api._api_result]
+async def async_rename(self, nickname: str) -> Awaitable[physicsLab.web.api._api_result]
 ```
 
 ## 收藏/支持 某个实验
 ```Python
-def star_content(self, content_id: str, category: physicsLab.enums.Category, star_type: int, status: bool = True) -> physicsLab.web._api._api_result
+def star_content(self, content_id: str, category: physicsLab.enums.Category, star_type: int, status: bool = True) -> physicsLab.web.api._api_result
 ```
 
 Args:
@@ -390,12 +390,12 @@ Returns:
 
 对应的协程风格的api:
 ```Python
-async def async_star_content(self, content_id: str, category: physicsLab.enums.Category, star_type: int, status: bool = True) -> Awaitable[physicsLab.web._api._api_result]
+async def async_star_content(self, content_id: str, category: physicsLab.enums.Category, star_type: int, status: bool = True) -> Awaitable[physicsLab.web.api._api_result]
 ```
 
 ## 解除封禁
 ```Python
-def unban(self, target_id: str, reason: str) -> physicsLab.web._api._api_result
+def unban(self, target_id: str, reason: str) -> physicsLab.web.api._api_result
 ```
 
 Args:
@@ -407,12 +407,12 @@ Returns:
 
 对应的协程风格的api:
 ```Python
-async def async_unban(self, target_id: str, reason: str) -> Awaitable[physicsLab.web._api._api_result]
+async def async_unban(self, target_id: str, reason: str) -> Awaitable[physicsLab.web.api._api_result]
 ```
 
 ## 上传实验图片
 ```Python
-def upload_image(self, policy: str, authorization: str, image_path: str) -> physicsLab.web._api._api_result
+def upload_image(self, policy: str, authorization: str, image_path: str) -> physicsLab.web.api._api_result
 ```
 
 Args:
@@ -428,5 +428,5 @@ Notes:
 
 对应的协程风格的api:
 ```Python
-async def async_upload_image(self, policy: str, authorization: str, image_path: str) -> Awaitable[physicsLab.web._api._api_result]
+async def async_upload_image(self, policy: str, authorization: str, image_path: str) -> Awaitable[physicsLab.web.api._api_result]
 ```

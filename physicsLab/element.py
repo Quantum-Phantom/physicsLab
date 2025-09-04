@@ -10,7 +10,7 @@ from . import savTemplate
 from physicsLab import circuit
 from physicsLab import celestial
 from physicsLab import electromagnetism
-from .web._api import _User
+from .web.api import User
 from .web.api import anonymous_login
 from .savTemplate import Generate
 from .circuit._circuit_core import crt_wire, Pin
@@ -216,7 +216,7 @@ class Experiment(_Experiment):
         category: Category,
         /,
         *,
-        user: Optional[_User] = None,
+        user: Optional[User] = None,
     ) -> None:
         """从物实服务器中获取存档
 
@@ -349,7 +349,7 @@ class Experiment(_Experiment):
             ):
                 errors.type_error()
             user = kwargs.get("user")
-            if not isinstance(user, (_User, type(None))):
+            if not isinstance(user, (User, type(None))):
                 errors.type_error(
                     f"Parameter user must be of type `User | None`, but got `{type(user).__name__}`"
                 )
