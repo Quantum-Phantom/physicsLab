@@ -16,7 +16,7 @@ from .savTemplate import Generate
 from .circuit._circuit_core import crt_wire, Pin
 from .enums import ExperimentType, Category, OpenMode, WireColor
 from ._core import _Experiment, _ExperimentStack, _check_not_closed, ElementBase
-from ._typing import num_type, Optional, Union, List, overload, Tuple, Self
+from ._typing import num_type, Optional, Union, List, overload, Tuple, Self, Dict
 
 
 def _get_all_pl_sav() -> List[str]:
@@ -88,9 +88,105 @@ def search_experiment(sav_name: str) -> Tuple[Optional[str], Optional[dict]]:
 
 class CircuitExperiment(_Experiment):
     """Experimental support for circuit experiment"""
+
     Wires: set
     _is_elementXYZ: bool
     _elementXYZ_origin_position: _tools.position
+
+    def __init__(
+        self,
+        open_mode: OpenMode,
+        # TODO 把 Tuple[num_type, num_type, num_type] 换成 _tools.position
+        _position2elements: Dict[
+            Tuple[num_type, num_type, num_type], List[ElementBase]
+        ],
+        _id2element: Dict[str, ElementBase],
+        Elements: List[ElementBase],
+        SAV_PATH: str,
+        PlSav: dict,
+        CameraSave: dict,
+        VisionCenter: _tools.position,
+        TargetRotation: _tools.position,
+        experiment_type: ExperimentType,
+        wires: set,
+        is_elementXYZ: bool,
+        elementXYZ_origin_position: _tools.position,
+    ) -> None:
+        super().__init__(
+            open_mode,
+            _position2elements,
+            _id2element,
+            Elements,
+            SAV_PATH,
+            PlSav,
+            CameraSave,
+            VisionCenter,
+            TargetRotation,
+            experiment_type,
+        )
+        self.Wires = wires
+        self._is_elementXYZ = is_elementXYZ
+        self._elementXYZ_origin_position = elementXYZ_origin_position
+
+
+class CelestialExperiment(_Experiment):
+    def __init__(
+        self,
+        open_mode: OpenMode,
+        _position2elements: Dict[
+            Tuple[num_type, num_type, num_type], List[ElementBase]
+        ],
+        _id2element: Dict[str, ElementBase],
+        Elements: List[ElementBase],
+        SAV_PATH: str,
+        PlSav: Dict,
+        CameraSave: Dict,
+        VisionCenter: _tools.position,
+        TargetRotation: _tools.position,
+        experiment_type: ExperimentType,
+    ) -> None:
+        super().__init__(
+            open_mode,
+            _position2elements,
+            _id2element,
+            Elements,
+            SAV_PATH,
+            PlSav,
+            CameraSave,
+            VisionCenter,
+            TargetRotation,
+            experiment_type,
+        )
+
+
+class ElectromagnetismExperiment(_Experiment):
+    def __init__(
+        self,
+        open_mode: OpenMode,
+        _position2elements: Dict[
+            Tuple[num_type, num_type, num_type], List[ElementBase]
+        ],
+        _id2element: Dict[str, ElementBase],
+        Elements: List[ElementBase],
+        SAV_PATH: str,
+        PlSav: Dict,
+        CameraSave: Dict,
+        VisionCenter: _tools.position,
+        TargetRotation: _tools.position,
+        experiment_type: ExperimentType,
+    ) -> None:
+        super().__init__(
+            open_mode,
+            _position2elements,
+            _id2element,
+            Elements,
+            SAV_PATH,
+            PlSav,
+            CameraSave,
+            VisionCenter,
+            TargetRotation,
+            experiment_type,
+        )
 
 
 class Experiment(_Experiment):
@@ -535,16 +631,6 @@ class Experiment(_Experiment):
                 obj.data = element
             else:
                 errors.unreachable()
-
-    def __enter__(self) -> Self:
-        return self
-
-    def __exit__(self, exc_type, exc_val, exc_tb) -> None:
-        # 如果无异常抛出且用户未在with语句里调用过.close(), 则保存存档并退出实验
-        if _ExperimentStack.inside(self):
-            if exc_type is None:
-                self.save()
-            self.close(delete=False)
 
     @_check_not_closed
     def crt_element(

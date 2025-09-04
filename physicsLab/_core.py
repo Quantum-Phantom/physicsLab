@@ -180,6 +180,16 @@ class _Experiment:
         self.TargetRotation = TargetRotation
         self.experiment_type = experiment_type
 
+    def __enter__(self) -> Self:
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb) -> None:
+        # 如果无异常抛出且用户未在with语句里调用过.close(), 则保存存档并退出实验
+        if _ExperimentStack.inside(self):
+            if exc_type is None:
+                self.save()
+            self.close(delete=False)
+
     @property
     def is_anonymous_sav(self) -> bool:
         """是否为匿名存档
@@ -190,6 +200,7 @@ class _Experiment:
     @property
     @_check_not_closed
     def is_elementXYZ(self) -> bool:
+        # TODO is_elementXYZ 应该只出现在 CircuitExperiment 中
         return self._is_elementXYZ
 
     @is_elementXYZ.setter

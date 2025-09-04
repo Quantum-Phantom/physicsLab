@@ -6,6 +6,7 @@ from collections import namedtuple
 from ._typing import num_type
 
 # TODO 元件坐标系也应该由这玩意负责
+# TODO 什么抽象玩意, 直接写成class罢
 position = namedtuple("position", ["x", "y", "z"])
 
 
