@@ -34,27 +34,27 @@ class Decoder:
             align_delays: 是否平衡输出信号的延时避免尖峰波出现(会导致电路元件数增加)
         """
         if not isinstance(x, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `x` must be of type `int | float`, but got value `{x}` of type `{type(x).__name__}`"
             )
         if not isinstance(y, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `y` must be of type `int | float`, but got value `{y}` of type `{type(y).__name__}`"
             )
         if not isinstance(z, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `z` must be of type `int | float`, but got value `{z}` of type `{type(z).__name__}`"
             )
         if not isinstance(elementXYZ, (bool, type(None))):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `elementXYZ` must be of type `Optional[bool]`, but got value `{elementXYZ}` of type `{type(elementXYZ).__name__}`"
             )
         if not isinstance(bitnum, int):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `bitnum` must be of type `int`, but got value `{bitnum}` of type `{type(bitnum).__name__}`"
             )
         if not isinstance(align_delays, bool):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `align_delays` must be of type `bool`, but got value `{align_delays}` of type `{type(align_delays).__name__}`"
             )
         if bitnum < 1:

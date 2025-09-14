@@ -129,43 +129,43 @@ class _Experiment:
     ) -> None:
         """Protected constructor"""
         if not isinstance(open_mode, OpenMode):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter open_mode must be of type `OpenMode`, but got `{open_mode}` of type `{type(open_mode).__name__}`"
             )
         if not isinstance(_position2elements, dict):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter _position2elements must be of type `dict`, but got `{_position2elements}` of type `{type(_position2elements).__name__}`"
             )
         if not isinstance(_id2element, dict):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter _id2element must be of type `dict`, but got `{_id2element}` of type `{type(_id2element).__name__}`"
             )
         if not isinstance(Elements, list):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter Elements must be of type `list`, but got `{Elements}` of type `{type(Elements).__name__}`"
             )
         if not isinstance(SAV_PATH, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter SAV_PATH must be of type `str`, but got `{SAV_PATH}` of type `{type(SAV_PATH).__name__}`"
             )
         if not isinstance(PlSav, dict):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter PlSav must be of type `dict`, but got `{PlSav}` of type `{type(PlSav).__name__}`"
             )
         if not isinstance(CameraSave, dict):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter CameraSave must be of type `dict`, but got `{CameraSave}` of type `{type(CameraSave).__name__}`"
             )
         if not isinstance(VisionCenter, _tools.position):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter VisionCenter must be of type `_tools.position`, but got `{VisionCenter}` of type `{type(VisionCenter).__name__}`"
             )
         if not isinstance(TargetRotation, _tools.position):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter TargetRotation must be of type `_tools.position`, but got `{TargetRotation}` of type `{type(TargetRotation).__name__}`"
             )
         if not isinstance(experiment_type, ExperimentType):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter experiment_type must be of type `ExperimentType`, but got `{experiment_type}` of type `{type(experiment_type).__name__}`"
             )
 
@@ -207,7 +207,7 @@ class _Experiment:
     @_check_not_closed
     def is_elementXYZ(self, status) -> None:
         if not isinstance(status, bool):
-            errors.type_error()
+            raise TypeError()
         if self.experiment_type != ExperimentType.Circuit:
             raise errors.ExperimentTypeError
 
@@ -236,7 +236,7 @@ class _Experiment:
             element: 三大实验的元件
         """
         if not isinstance(element, ElementBase):
-            errors.type_error()
+            raise TypeError()
         if element.experiment is not self:
             raise errors.ExperimentError(
                 "element is not in this experiment"
@@ -292,7 +292,7 @@ class _Experiment:
             or not isinstance(y, (int, float))
             or not isinstance(z, (int, float))
         ):
-            errors.type_error()
+            raise TypeError()
 
         position = (_tools.round_data(x), _tools.round_data(y), _tools.round_data(z))
         if position not in self._position2elements.keys():
@@ -304,7 +304,7 @@ class _Experiment:
     def get_element_from_index(self, index: int) -> "ElementBase":
         """通过index (元件生成顺序) 索引元件, index从1开始"""
         if not isinstance(index, int):
-            errors.type_error()
+            raise TypeError()
         if not 0 < index <= self.get_elements_count():
             raise errors.ElementNotFound("index out of range")
 
@@ -396,7 +396,7 @@ class _Experiment:
         if not isinstance(target_path, (str, type(None))) or not isinstance(
             no_print_info, bool
         ):
-            errors.type_error()
+            raise TypeError()
 
         if target_path is None:
             target_path = self.SAV_PATH
@@ -498,7 +498,7 @@ class _Experiment:
     def entitle(self, sav_name: str) -> Self:
         """对存档名进行重命名"""
         if not isinstance(sav_name, str):
-            errors.type_error()
+            raise TypeError()
 
         self.__entitle(sav_name)
         return self
@@ -533,7 +533,7 @@ class _Experiment:
     @_check_not_closed
     def edit_tags(self, *tags: Tag) -> Self:
         if not all(isinstance(tag, Tag) for tag in tags):
-            errors.type_error()
+            raise TypeError()
 
         temp = self.PlSav["Summary"]["Tags"] + [tag.value for tag in tags]
         self.PlSav["Summary"]["Tags"] = list(set(temp))
@@ -551,7 +551,7 @@ class _Experiment:
             or not isinstance(category, (Category, type(None)))
             or not isinstance(user, User)
         ):
-            errors.type_error()
+            raise TypeError()
         if image_path is not None and (
             not os.path.exists(image_path) or not os.path.isfile(image_path)
         ):
@@ -642,7 +642,7 @@ class _Experiment:
         if not isinstance(category, Category) or not isinstance(
             image_path, (str, type(None))
         ):
-            errors.type_error()
+            raise TypeError()
         if self.PlSav["Summary"]["ID"] is not None:
             raise Exception(
                 "upload can only be used to upload a brand new experiment, try using `.update` instead"
@@ -754,7 +754,7 @@ class _Experiment:
             or not isinstance(rotation_y, (int, float))
             or not isinstance(rotation_z, (int, float))
         ):
-            errors.type_error()
+            raise TypeError()
 
         self.VisionCenter = _tools.position(x, y, z)
         self.CameraSave["Distance"] = distance
@@ -766,7 +766,7 @@ class _Experiment:
     def paused(self, status: bool = True) -> Self:
         """暂停或解除暂停实验"""
         if not isinstance(status, bool):
-            errors.type_error()
+            raise TypeError()
 
         self.PlSav["Paused"] = status
         self.PlSav["Experiment"]["Paused"] = status
@@ -812,7 +812,7 @@ class _Experiment:
             or not isinstance(z, (int, float))
             or not isinstance(elementXYZ, (bool, type(bool)))
         ):
-            errors.type_error()
+            raise TypeError()
         if self.experiment_type != other.experiment_type:
             raise errors.ExperimentTypeError
         if self is other:
@@ -893,15 +893,15 @@ class ElementBase:
     def set_position(self, x: num_type, y: num_type, z: num_type) -> Self:
         """设置元件的位置"""
         if not isinstance(x, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter x must be of type `int` or `float`, but got `{x}` of type `{type(x).__name__}`"
             )
         if not isinstance(y, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter y must be of type `int` or `float`, but got `{y}` of type `{type(y).__name__}`"
             )
         if not isinstance(z, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter z must be of type `int` or `float`, but got `{z}` of type `{type(z).__name__}`"
             )
 

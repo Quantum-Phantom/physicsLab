@@ -29,7 +29,7 @@ class UnitPin:
         elif isinstance(item, slice):
             return UnitPin(self.lib_self, *self.pins[item])
         else:
-            errors.type_error(
+            raise TypeError(
                 f"Parameter item must be of type `int | slice`, but got value {item} of type `{type(item).__name__}`"
             )
 

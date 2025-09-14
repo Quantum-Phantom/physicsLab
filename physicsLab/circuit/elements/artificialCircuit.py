@@ -156,7 +156,7 @@ class Basic_Capacitor(_TwoPinMixIn):
     @final
     def peak_voltage(self, value: num_type) -> num_type:
         if not isinstance(value, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"peak_voltage must be of type `int | float`, but got value `{value}` of type {type(value).__name__}"
             )
 
@@ -175,7 +175,7 @@ class Basic_Capacitor(_TwoPinMixIn):
     @final
     def capacitance(self, value: num_type) -> num_type:
         if not isinstance(value, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"capacitance must be of type `int | float`, but got value `{value}` of type {type(value).__name__}"
             )
 
@@ -194,7 +194,7 @@ class Basic_Capacitor(_TwoPinMixIn):
     @final
     def internal_resistance(self, value: num_type) -> num_type:
         if not isinstance(value, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"internal_resistance must be of type `int | float`, but got value `{value}` of type {type(value).__name__}"
             )
 
@@ -215,7 +215,7 @@ class Basic_Capacitor(_TwoPinMixIn):
     @final
     def is_ideal(self, value: bool) -> bool:
         if not isinstance(value, bool):
-            errors.type_error(
+            raise TypeError(
                 f"is_ideal must be of type `bool`, but got value `{value}` of type {type(value).__name__}"
             )
 
@@ -298,7 +298,7 @@ class Basic_Inductor(_TwoPinMixIn):
     @final
     def rated_current(self, value: num_type) -> num_type:
         if not isinstance(value, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"rated_current must be of type `int | float`, but got value `{value}` of type {type(value).__name__}"
             )
 
@@ -317,7 +317,7 @@ class Basic_Inductor(_TwoPinMixIn):
     @final
     def inductance(self, value: num_type) -> num_type:
         if not isinstance(value, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"inductance must be of type `int | float`, but got value `{value}` of type {type(value).__name__}"
             )
 
@@ -336,7 +336,7 @@ class Basic_Inductor(_TwoPinMixIn):
     @final
     def internal_resistance(self, value: num_type) -> num_type:
         if not isinstance(value, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"internal_resisitance must be of type `int | float`, but got value `{value}` of type {type(value).__name__}"
             )
 
@@ -357,7 +357,7 @@ class Basic_Inductor(_TwoPinMixIn):
     @final
     def is_ideal(self, value: bool) -> bool:
         if not isinstance(value, bool):
-            errors.type_error(
+            raise TypeError(
                 f"is_ideal must be of type `bool`, but got value `{value}` of type {type(value).__name__}"
             )
 
@@ -790,7 +790,7 @@ class Transistor(CircuitBase):
     @is_PNP.setter
     def is_PNP(self, value: bool) -> bool:
         if not isinstance(value, bool):
-            errors.type_error(
+            raise TypeError(
                 f"is_PNP must be of type `bool`, but got value `{value}` of type `{type(value).__name__}`"
             )
 
@@ -806,7 +806,7 @@ class Transistor(CircuitBase):
     @gain.setter
     def gain(self, value: num_type) -> num_type:
         if not isinstance(value, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"gain must be of type `int | float`, but got value `{value}` of type `{type(value).__name__}`"
             )
 
@@ -822,7 +822,7 @@ class Transistor(CircuitBase):
     @max_power.setter
     def max_power(self, value: num_type) -> num_type:
         if not isinstance(value, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"max_power must be of type `int | float`, but got value `{value}` of type `{type(value).__name__}`"
             )
 
@@ -960,7 +960,7 @@ class Operational_Amplifier(CircuitBase):
     @gain.setter
     def gain(self, value: num_type) -> num_type:
         if not isinstance(value, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"gain must be of type `int | float`, but got value `{value}` of type `{type(value).__name__}`"
             )
 
@@ -976,7 +976,7 @@ class Operational_Amplifier(CircuitBase):
     @max_voltage.setter
     def max_voltage(self, value: num_type) -> num_type:
         if not isinstance(value, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"max_voltage must be of type `int | float`, but got value `{value}` of type `{type(value).__name__}`"
             )
         if self.properties["最小电压"] is not Generate and self.min_voltage >= value:
@@ -994,7 +994,7 @@ class Operational_Amplifier(CircuitBase):
     @min_voltage.setter
     def min_voltage(self, value: num_type) -> num_type:
         if not isinstance(value, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"min_voltage must be of type `int | float`, but got value `{value}` of type `{type(value).__name__}`"
             )
         if self.properties["最大电压"] is not Generate and self.max_voltage <= value:
@@ -1084,7 +1084,7 @@ class Relay_Component(CircuitBase):
     @pull_in_current.setter
     def pull_in_current(self, value: num_type) -> num_type:
         if not isinstance(value, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"pull_in_current must be of type `int | float`, but got value `{value}` of type `{type(value).__name__}`"
             )
 
@@ -1101,7 +1101,7 @@ class Relay_Component(CircuitBase):
     @rated_current.setter
     def rated_current(self, value: num_type) -> num_type:
         if not isinstance(value, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"rated_current must be of type `int | float`, but got value `{value}` of type `{type(value).__name__}`"
             )
 
@@ -1118,7 +1118,7 @@ class Relay_Component(CircuitBase):
     @coil_inductance.setter
     def coil_inductance(self, value: num_type) -> num_type:
         if not isinstance(value, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"coil_inductance must be of type `int | flaot`, but got value `{value}` of type `{type(value).__name__}`"
             )
 
@@ -1135,7 +1135,7 @@ class Relay_Component(CircuitBase):
     @coil_resistance.setter
     def coil_resistance(self, value: num_type) -> num_type:
         if not isinstance(value, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"coil_resistance must be of type `int | flaot`, but got value `{value}` of type `{type(value).__name__}`"
             )
 
@@ -1224,7 +1224,7 @@ class N_MOSFET(CircuitBase):
     @beta.setter
     def beta(self, value: num_type) -> num_type:
         if not isinstance(value, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"beta must be of type `int | float`, but got value `{value}` of type {type(value).__name__}"
             )
 
@@ -1241,7 +1241,7 @@ class N_MOSFET(CircuitBase):
     @threshold.setter
     def threshold(self, value: num_type) -> num_type:
         if not isinstance(value, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"threshold must be of type `int | float`, but got value `{value}` of type {type(value).__name__}"
             )
 
@@ -1258,7 +1258,7 @@ class N_MOSFET(CircuitBase):
     @max_power.setter
     def max_power(self, value: num_type) -> num_type:
         if not isinstance(value, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"max_power must be of type `int | float`, but got value `{value}` of type {type(value).__name__}"
             )
 

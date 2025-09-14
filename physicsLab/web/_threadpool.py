@@ -61,7 +61,7 @@ class ThreadPool:
     def __init__(self, *, max_workers: int) -> None:
         """@param max_workers: 最大线程数"""
         if not isinstance(max_workers, int):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `max_workers` must be of type `int`, but got value `{max_workers}` of type `{type(max_workers).__name__}`"
             )
         if max_workers <= 0:
@@ -94,7 +94,7 @@ class ThreadPool:
         @param func: function to be submitted
         """
         if not callable(func):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter func must be of `callable`, but got value {func} of type `{type(func)}`"
             )
 

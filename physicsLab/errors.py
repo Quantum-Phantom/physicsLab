@@ -10,18 +10,11 @@
     因此一旦这些错误发生, physicsLab会调用os.abort来终止程序, 而不是抛出一个异常
     被视为 不可恢复的错误 的有:
     * assertion_error: 断言错误, physicsLab认为其为不可恢复的错误, 因此请不要使用 AssertionError
-    * type_error: 断言错误, physicsLab认为其为不可恢复的错误, 因此请不要使用 TypeError
-    除此之外, physicsLab自定义了不可恢复错误发生时的打印输出格式
-    这些格式比Python自带的traceback可读性更好
 """
 
 import os
 import sys
-import ast
-import math
-import inspect
 import threading
-from .vendor import executing
 
 from ._typing import NoReturn
 from physicsLab import _unwind
@@ -70,97 +63,6 @@ def assert_true(
 
 def unreachable() -> NoReturn:
     assertion_error(f"Unreachable touched, {BUG_REPORT}")
-
-
-def type_error(msg: Optional[str] = None) -> NoReturn:
-    """类型错误, physicsLab认为其为不可恢复的错误"""
-    _unrecoverable_error_lock.acquire()
-    current_frame = inspect.currentframe()
-    if current_frame is None:
-        unreachable()
-
-    declare_frame = current_frame.f_back
-    if declare_frame is None:
-        unreachable()
-    declare_node = executing.Source.executing(declare_frame).node
-    declare_module = inspect.getmodule(declare_frame)
-    if declare_module is None:
-        unreachable()
-
-    call_frame = declare_frame.f_back
-    if call_frame is None:
-        unreachable()
-    call_module = inspect.getmodule(call_frame)
-    call_executing = executing.Source.executing(call_frame)
-    call_node = call_executing.node
-    if call_node is None:
-        # executing 的原理是通过解析字节码`__code__`来获取对应的节点
-        # 但executing支持的字节码有限, 比如await有关的字节码就不支持, 无法获取对应的node
-        # 此时只好用inspect.stack来反射获取相对原始的源代码信息
-        call_frame_info = inspect.stack()[2]
-        if call_frame_info is None or call_frame_info.code_context is None:
-            unreachable()
-        _unwind.print_code_block(
-            lambda: _colorUtils.cprint(
-                " File ",
-                _colorUtils.Magenta(f'"{call_frame.f_code.co_filename}"'),
-                ", in ",
-                _colorUtils.Magenta(call_executing.code_qualname()),
-                file=sys.stderr,
-            ),
-            call_frame_info.lineno,
-            call_frame_info.code_context[0].strip(),
-        )
-    else:
-        if call_module is None:
-            unreachable()
-        call_src = ast.get_source_segment(
-            inspect.getsource(call_module), call_node, padded=True
-        )
-        if call_src is None:
-            unreachable()
-        _unwind.print_code_block(
-            lambda: _colorUtils.cprint(
-                " File ",
-                _colorUtils.Magenta(f'"{call_frame.f_code.co_filename}"'),
-                ", in ",
-                _colorUtils.Magenta(call_executing.code_qualname()),
-                file=sys.stderr,
-            ),
-            call_frame.f_lineno,
-            call_src,
-        )
-
-        while not isinstance(declare_node, (ast.FunctionDef, ast.AsyncFunctionDef)):
-            declare_node = declare_node.parent
-        func_declare = ast.get_source_segment(
-            inspect.getsource(declare_module), declare_node, padded=True
-        )
-        if func_declare is None:
-            unreachable()
-        is_signature = 0
-        declare_output: str = ""
-        for char in func_declare:
-            if char == "(":
-                is_signature += 1
-            elif char == ")":
-                is_signature -= 1
-            elif char == ":" and is_signature == 0:
-                declare_output += "\n"
-                break
-            declare_output += char
-
-        _unwind.print_code_block(
-            lambda: _colorUtils.cprint(
-                _colorUtils.Yellow(" Note"),
-                ": function defined here:",
-                file=sys.stderr,
-            ),
-            declare_node.lineno,
-            declare_output,
-        )
-
-    _unrecoverable_error("TypeError", msg)
 
 
 class InvalidWireError(Exception):

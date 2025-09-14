@@ -69,23 +69,23 @@ class NotificationsIter:
         @param max_workers: 最大线程数
         """
         if not isinstance(user, User):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `user` must be of type `User`, but got value `{user}` of type `{type(user).__name__}`"
             )
         if not isinstance(category_id, int):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `category_id` must be of type `int`, but got value `{category_id}` of type `{type(category_id).__name__}`"
             )
         if not isinstance(start_skip, int):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `start_skip` must be of type `int`, but got value `{start_skip}` of type `{type(start_skip).__name__}`"
             )
         if not isinstance(max_retry, (int, type(None))):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `max_retry` must be of type `int` or `None`, but got value `{max_retry}` of type `{type(max_retry).__name__}`"
             )
         if not isinstance(max_workers, int):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `max_workers` must be of type `int`, but got value `{max_workers}` of type `{type(max_workers).__name__}`"
             )
         if (
@@ -160,66 +160,66 @@ class ExperimentsIter:
         @param max_workers: 最大线程数
         """
         if not isinstance(category, Category):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `category` must be of type `Category`, but got value `{category}` of type `{type(category).__name__}`"
             )
         if not isinstance(user, User):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `user` must be of type `User`, but got value `{user}` of type `{type(user).__name__}`"
             )
         if not isinstance(tags, (list, type(None))):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `tags` must be of type `Optional[list[Tag]]`, but got value `{tags}` of type `{type(tags).__name__}`"
             )
         if tags is not None and not all(isinstance(tag, Tag) for tag in tags):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `tags` must be of type `Optional[list[Tag]]`, but got value `{tags}` of type `{type(tags).__name__}`"
             )
         if not isinstance(exclude_tags, (list, type(None))):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `exclude_tags` must be of type `Optional[list[Tag]]`, but got value `{exclude_tags}` of type `{type(exclude_tags).__name__}`"
             )
         if exclude_tags is not None and not all(
             isinstance(tag, Tag) for tag in exclude_tags
         ):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `exclude_tags` must be of type `Optional[list[Tag]]`, but got value `{exclude_tags}` of type `{type(exclude_tags).__name__}`"
             )
         if not isinstance(languages, (list, type(None))):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `languages` must be of type `Optional[list[str]]`, but got value `{languages}` of type `{type(languages).__name__}`"
             )
         if languages is not None and not all(
             isinstance(language, str) for language in languages
         ):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `languages` must be of type `Optional[list[str]]`, but got value `{languages}` of type `{type(languages).__name__}`"
             )
         if not isinstance(user_id, (str, type(None))):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `user_id` must be of type `Optional[str]`, but got value `{user_id}` of type `{type(user_id).__name__}`"
             )
         if not isinstance(max_retry, (int, type(None))):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `max_retry` must be of type `Optional[int]`, but got value `{max_retry}` of type `{type(max_retry).__name__}`"
             )
         if not isinstance(start_skip, int):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `start_skip` must be of type `int`, but got value `{start_skip}` of type `{type(start_skip).__name__}`"
             )
         if not isinstance(from_skip, (str, type(None))):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `from_skip` must be of type `Optional[str]`, but got value `{from_skip}` of type `{type(from_skip).__name__}`"
             )
         if not isinstance(max_workers, int):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `max_workers` must be of type `int`, but got value `{max_workers}` of type `{type(max_workers).__name__}`"
             )
         if not isinstance(exclude_languages, type(None)) and (
             not isinstance(exclude_languages, list)
             or not all(isinstance(tag, str) for tag in exclude_languages)
         ):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `exclude_languages` must be of type `Optional[List[str]]`, but got value `{exclude_languages}` of type `{type(exclude_languages).__name__}`"
             )
         if start_skip < 0 or max_workers <= 0:
@@ -289,35 +289,35 @@ class BannedMsgIter:
         @param max_workers: 最大线程数
         """
         if not isinstance(user, User):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `user` must be of type `User`, but got value `{user}` of type `{type(user).__name__}`"
             )
         if not isinstance(start_skip, int):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `start_skip` must be of type `int`, but got value `{start_skip}` of type `{type(start_skip).__name__}`"
             )
         if not isinstance(start_time, (int, float, type(None))):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `start_time` must be of type `Optional[num_type]`, but got value `{start_time}` of type `{type(start_time).__name__}`"
             )
         if not isinstance(end_time, (int, float, type(None))):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `end_time` must be of type `Optional[num_type]`, but got value `{end_time}` of type `{type(end_time).__name__}`"
             )
         if not isinstance(user_id, (str, type(None))):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `user_id` must be of type `Optional[str]`, but got value `{user_id}` of type `{type(user_id).__name__}`"
             )
         if not isinstance(max_retry, (int, type(None))):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `max_retry` must be of type `Optional[int]`, but got value `{max_retry}` of type `{type(max_retry).__name__}`"
             )
         if not isinstance(get_banned_template, bool):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `get_banned_template` must be of type `bool`, but got value `{get_banned_template}` of type `{type(get_banned_template).__name__}`"
             )
         if not isinstance(max_workers, int):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `max_workers` must be of type `int`, but got value `{max_workers}` of type `{type(max_workers).__name__}`"
             )
         if max_workers <= 0:
@@ -393,23 +393,23 @@ class CommentsIter:
         @param: max_retry: 网络请求失败时重试的次数
         """
         if not isinstance(user, User):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `user` must be of type `User`, but got value `{user}` of type `{type(user).__name__}`"
             )
         if not isinstance(content_id, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `content_id` must be of type `str`, but got value `{content_id}` of type `{type(content_id).__name__}`"
             )
         if not isinstance(category, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `category` must be of type `str`, but got value `{category}` of type `{type(category).__name__}`"
             )
         if not isinstance(start_time, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `start_time` must be of type `int | float`, but got value `{start_time}` of type `{type(start_time).__name__}`"
             )
         if not isinstance(max_retry, (int, type(None))):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `max_retry` must be of type `Optional[int]`, but got value `{max_retry}` of type `{type(max_retry).__name__}`"
             )
         if category not in ("User", "Experiment", "Discussion"):
@@ -463,25 +463,25 @@ class WarnedMsgIter:
         @param banned_message_callback: 封禁记录回调函数
         """
         if not isinstance(user, User):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `user` must be of type `User`, but got value `{user}` of type `{type(user).__name__}`"
             )
         if not isinstance(user_id, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `user_id` must be of type `str`, but got value `{user_id}` of type `{type(user_id).__name__}`"
             )
         if not isinstance(start_time, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `start_time` must be of type `float`, but got value `{start_time}` of type `{type(start_time).__name__}`"
             )
         if not isinstance(end_time, (int, float, type(None))):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `end_time` must be of type `Optional[int | float]`, but got value `{end_time}` of type `{type(end_time).__name__}`"
             )
         if maybe_warned_message_callback is not None and not callable(
             maybe_warned_message_callback
         ):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `maybe_warned_message_callback` must be of type `Optional[Callable]`, but got value `{maybe_warned_message_callback}` of type `{type(maybe_warned_message_callback).__name__}`"
             )
         if not user.is_binded:
@@ -544,23 +544,23 @@ class RelationsIter:
         @param max_workers: 最大线程数
         """
         if not isinstance(user, User):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `user` must be of type `User`, but got value `{user}` of type `{type(user).__name__}`"
             )
         if not isinstance(user_id, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `user_id` must be of type `str`, but got value `{user_id}` of type `{type(user_id).__name__}`"
             )
         if not isinstance(display_type, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `display_type` must be of type `str`, but got value `{display_type}` of type `{type(display_type).__name__}`"
             )
         if not isinstance(max_retry, (int, type(None))):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `max_retry` must be of type `Optional[int]`, but got value `{max_retry}` of type `{type(max_retry).__name__}`"
             )
         if not isinstance(amount, (int, type(None))):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `amount` must be of type `Optional[int]`, but got value `{amount}` of type `{type(amount).__name__}`"
             )
         if display_type not in ("Follower", "Following"):
@@ -568,7 +568,7 @@ class RelationsIter:
                 f"Parameter `display_type` must be one of ['Follower', 'Following'], but got value `{display_type} of type '{display_type}'"
             )
         if not isinstance(max_workers, int):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `max_workers` must be of type `int`, but got value `{max_workers}` of type `{type(max_workers).__name__}`"
             )
         if max_retry is not None and max_retry < 0 or max_workers <= 0:
@@ -639,31 +639,31 @@ class AvatarsIter:
         @param max_workers: 最大线程数
         """
         if not isinstance(target_id, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `target_id` must be of type `str`, but got value `{target_id}` of type `{type(target_id).__name__}`"
             )
         if not isinstance(category, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `category` must be of type `str`, but got value `{category}` of type `{type(category).__name__}`"
             )
         if not isinstance(size_category, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `size_category` must be of type `str`, but got value `{size_category}` of type `{type(size_category).__name__}`"
             )
         if not isinstance(user, User):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `user` must be of type `User`, but got value `{user}` of type `{type(user).__name__}`"
             )
         if not isinstance(max_retry, (int, type(None))):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `max_retry` must be of type `Optional[int]`, but got value `{max_retry}` of type `{type(max_retry).__name__}`"
             )
         if not isinstance(max_img_index, (int, type(None))):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `max_img_index` must be of type `Optional[int]`, but got value `{max_img_index}` of type `{type(max_img_index).__name__}`"
             )
         if not isinstance(max_workers, int):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `max_workers` must be of type `int`, but got value `{max_workers}` of type `{type(max_workers).__name__}`"
             )
         if (

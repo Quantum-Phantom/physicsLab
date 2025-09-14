@@ -98,15 +98,15 @@ class Wire:
         self, source_pin: Pin, target_pin: Pin, color: WireColor = WireColor.blue
     ) -> None:
         if not isinstance(source_pin, Pin):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter source_pin must be of type `Pin`, but got value {source_pin} of type `{type(source_pin).__name__}`"
             )
         if not isinstance(target_pin, Pin):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter target_pin must be of type `Pin`, but got value {target_pin} of type `{type(target_pin).__name__}`"
             )
         if not isinstance(color, WireColor):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter color must be of type `WireColor`, but got value {color} of type `{type(color).__name__}`"
             )
 
@@ -154,9 +154,9 @@ class Wire:
 def crt_wire(*pins: Pin, color: WireColor = WireColor.blue) -> List[Wire]:
     """连接导线"""
     if not all(isinstance(a_pin, Pin) for a_pin in pins):
-        errors.type_error(f"Parameter pins must be of type `tuple[Pin]`")
+        raise TypeError(f"Parameter pins must be of type `tuple[Pin]`")
     if not isinstance(color, WireColor):
-        errors.type_error(
+        raise TypeError(
             f"Parameter color must be of type `WireColor`, but got value {color} of type `{type(color).__name__}`"
         )
     if len(pins) <= 1:
@@ -179,11 +179,11 @@ def crt_wire(*pins: Pin, color: WireColor = WireColor.blue) -> List[Wire]:
 def del_wire(source_pin: Pin, target_pin: Pin) -> None:
     """删除导线"""
     if not isinstance(source_pin, Pin):
-        errors.type_error(
+        raise TypeError(
             f"Parameter source_pin must be of type `Pin`, but got value {source_pin} of type `{type(source_pin).__name__}`"
         )
     if not isinstance(target_pin, Pin):
-        errors.type_error(
+        raise TypeError(
             f"Parameter target_pin must be of type `Pin`, but got value {target_pin} of type `{type(target_pin).__name__}`"
         )
 
@@ -209,27 +209,27 @@ class _CircuitMeta(type):
         **kwargs,
     ):
         if not isinstance(x, (float, int)):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter x must be of type `int | float`, but got value {x} of type {type(x).__name__}"
             )
         if not isinstance(y, (float, int)):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter y must be of type `int | float`, but got value {y} of type {type(y).__name__}"
             )
         if not isinstance(z, (float, int)):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter z must be of type `int | float`, but got value {z} of type {type(z).__name__}"
             )
         if not isinstance(elementXYZ, (bool, type(None))):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter elementXYZ must be of type `Optional[bool]`, but got value {elementXYZ} of type {type(elementXYZ).__name__}"
             )
         if not isinstance(identifier, (str, type(None))):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter identifier must be of type `Optional[str]`, but got value {identifier} of type {type(identifier).__name__}"
             )
         if not isinstance(experiment, (_Experiment, type(None))):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter experiment must be of type `Optional[Experiment]`, but got value {experiment} of type {type(experiment).__name__}"
             )
 
@@ -288,15 +288,15 @@ class CircuitBase(ElementBase, metaclass=_CircuitMeta):
     ) -> Self:
         """设置元件的角度"""
         if not isinstance(x_r, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter x_r must be of type `int | float`, but got value {x_r} of type `{type(x_r).__name__}`"
             )
         if not isinstance(y_r, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter y_r must be of type `int | float`, but got value {y_r} of type `{type(y_r).__name__}`"
             )
         if not isinstance(z_r, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter z_r must be of type `int | float`, but got value {z_r} of type `{type(z_r).__name__}`"
             )
 
@@ -314,19 +314,19 @@ class CircuitBase(ElementBase, metaclass=_CircuitMeta):
     ) -> Self:
         """设置元件的位置"""
         if not isinstance(x, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter x must be of type `int | float`, but got value {x} of type `{type(x).__name__}`"
             )
         if not isinstance(y, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter y must be of type `int | float`, but got value {y} of type `{type(y).__name__}`"
             )
         if not isinstance(z, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter z must be of type `int | float`, but got value {z} of type `{type(z).__name__}`"
             )
         if not isinstance(elementXYZ, (bool, type(None))):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter elementXYZ must be of type `Optional[bool]`, but got value {elementXYZ} of type `{type(elementXYZ).__name__}`"
             )
 
@@ -366,7 +366,7 @@ class CircuitBase(ElementBase, metaclass=_CircuitMeta):
             status: 是否锁定元件
         """
         if not isinstance(status, bool):
-            errors.type_error(
+            raise TypeError(
                 f"lock must be of type `bool`, but got value {status} of type {type(status).__name__}"
             )
 
@@ -397,7 +397,7 @@ class CircuitBase(ElementBase, metaclass=_CircuitMeta):
             name: 将元件重命名为name
         """
         if not isinstance(name, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter name must be of type `str`, but got value {name} of type `{type(name).__name__}`"
             )
 

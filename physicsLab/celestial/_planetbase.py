@@ -19,23 +19,23 @@ class _PlanetMeta(type):
         **kwargs,
     ):
         if not isinstance(x, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter x must be of type `int | float`, but got value `{x}` of type `{type(x).__name__}`"
             )
         if not isinstance(y, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter y must be of type `int | float`, but got value `{y}` of type `{type(y).__name__}`"
             )
         if not isinstance(z, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter z must be of type `int | float`, but got value `{z}` of type `{type(z).__name__}`"
             )
         if not isinstance(identifier, (str, type(None))):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter identifier must be of type `Optional[str]`, but got value `{identifier}` of type `{type(identifier).__name__}`"
             )
         if not isinstance(experiment, (_Experiment, type(None))):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter experiment must be of type `Optional[Experiment]`, but got value `{experiment}` of type `{type(experiment).__name__}`"
             )
 
@@ -81,15 +81,15 @@ class PlanetBase(ElementBase, metaclass=_PlanetMeta):
     def set_position(self, x: num_type, y: num_type, z: num_type) -> Self:
         """设置位置坐标"""
         if not isinstance(x, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter x must be of type `int | float`, but got {type(x).__name__}"
             )
         if not isinstance(y, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter y must be of type `int | float`, but got {type(x).__name__}"
             )
         if not isinstance(z, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter z must be of type `int | float`, but got {type(x).__name__}"
             )
 

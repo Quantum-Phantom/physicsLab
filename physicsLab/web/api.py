@@ -108,23 +108,23 @@ def get_avatar(
         bytes: 图片数据
     """
     if not isinstance(target_id, str):
-        errors.type_error(
+        raise TypeError(
             f"Parameter `target_id` must be of type `str`, but got value `{target_id}` of type `{type(target_id).__name__}`"
         )
     if not isinstance(index, int):
-        errors.type_error(
+        raise TypeError(
             f"Parameter `index` must be of type `int`, but got value `{index}` of type `{type(index).__name__}`"
         )
     if not isinstance(category, str):
-        errors.type_error(
+        raise TypeError(
             f"Parameter `category` must be of type `str`, but got value `{category}` of type `{type(category).__name__}`"
         )
     if not isinstance(size_category, str):
-        errors.type_error(
+        raise TypeError(
             f"Parameter `size_category` must be of type `str`, but got value `{size_category}` of type `{type(size_category).__name__}`"
         )
     if not isinstance(usehttps, bool):
-        errors.type_error(
+        raise TypeError(
             f"Parameter `usehttps` must be of type `bool`, but got value `{usehttps}` of type `{type(usehttps).__name__}`"
         )
     if category not in ("experiments", "users"):
@@ -277,61 +277,61 @@ class User:
             _api_result: 物实api返回体结构
         """
         if not isinstance(category, Category):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `category` must be an instance of Category enum, but got value `{category}` of type `{type(category).__name__}`"
             )
         if not isinstance(tags, (list, type(None))):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `tags` must be of type 'list' or None, but got value `{tags}` of type `{type(tags).__name__}`"
             )
         if tags is not None and not all(isinstance(tag, Tag) for tag in tags):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `tags` must be a list of Tag enum instances, but got value `{tags} of type list containing non-Tag elements"
             )
         if not isinstance(exclude_tags, (list, type(None))):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `exclude_tags` must be of type 'list' or None, but got value `{exclude_tags}` of type `{type(exclude_tags).__name__}`"
             )
         if exclude_tags is not None and not all(
             isinstance(tag, Tag) for tag in exclude_tags
         ):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `exclude_tags` must be a list of Tag enum instances, but got value `{exclude_tags} of type list containing non-Tag elements"
             )
         if not isinstance(languages, (list, type(None))):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `languages` must be of type `Optional[list]`, but got value `{languages}` of type `{type(languages).__name__}`"
             )
         if languages is not None and not all(
             isinstance(language, str) for language in languages
         ):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `languages` must be type `list | str`, but got value `{languages}` of type `{type(languages).__name__}`"
             )
         if not isinstance(exclude_languages, (list, type(None))):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `exclude_languages` must be of type `Optional[list]`, but got value `{exclude_languages}` of type `{type(exclude_languages).__name__}`"
             )
         if exclude_languages is not None and not all(
             isinstance(language, str) for language in exclude_languages
         ):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `exclude_languages` must be a list of str, but got value `{exclude_languages} of type list containing non-str elements"
             )
         if not isinstance(user_id, (str, type(None))):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `user_id` must be of type `str` or None, but got value `{user_id}` of type {type(user_id).__name__}`"
             )
         if not isinstance(take, int):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `take` must be of type `int`, but got value `{take}` of type `{type(take).__name__}`"
             )
         if not isinstance(skip, int):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `skip` must be of type `int`, but got value `{skip}` of type `{type(skip).__name__}`"
             )
         if not isinstance(from_skip, (str, type(None))):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `from_skip` must be of type `str` or None, but got value `{from_skip}` of type `{type(from_skip).__name__}`"
             )
 
@@ -422,11 +422,11 @@ class User:
             _api_result: 物实api返回体结构
         """
         if not isinstance(content_id, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `content_id` must be of type `str`, but got value `{content_id}` of type `{type(content_id).__name__}`"
             )
         if not isinstance(category, (Category, type(None))):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `category` must be an instance of Category enum or None, but got value `{category}` of type `{type(category).__name__}`"
             )
 
@@ -473,15 +473,15 @@ class User:
             使用Experiment.update()与Experiment.upload()方法来发布实验
         """
         if not isinstance(summary_id, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `summary_id` must be of type `str`, but got value `{summary_id}` of type `{type(summary_id).__name__}`"
             )
         if not isinstance(category, Category):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `category` must be an instance of Category enum, but got value `{category}` of type `{type(category).__name__}`"
             )
         if not isinstance(image_counter, int):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `image_counter` must be of type `int`, but got value `{image_counter}` of type `{type(image_counter).__name__}`"
             )
 
@@ -523,15 +523,15 @@ class User:
             _api_result: 物实api返回体结构
         """
         if not isinstance(summary_id, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `summary_id` must be of type `str`, but got value `{summary_id}` of type `{type(summary_id).__name__}`"
             )
         if not isinstance(category, Category):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `category` must be an instance of Category enum, but got value `{category}` of type `{type(category).__name__}`"
             )
         if not isinstance(reason, (str, type(None))):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `reason` must be of type `str` or None, but got value `{reason}` of type `{type(reason).__name__}`"
             )
 
@@ -591,19 +591,19 @@ class User:
             _api_result: 物实api返回体结构
         """
         if not isinstance(target_id, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `target_id` must be of type `str`, but got value `{target_id}` of type `{type(target_id).__name__}`"
             )
         if not isinstance(content, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `content` must be of type `str`, but got value `{content}` of type `{type(content).__name__}`"
             )
         if not isinstance(target_type, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `target_type` must be of type `str`, but got value `{target_type}` of type `{type(target_type).__name__}`"
             )
         if not isinstance(reply_id, (str, type(None))):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `reply_id` must be of type `str` or None, but got value `{reply_id}` of type `{type(reply_id).__name__}`"
             )
         if target_type not in ("User", "Discussion", "Experiment"):
@@ -692,11 +692,11 @@ class User:
             _api_result: 物实api返回体结构
         """
         if not isinstance(comment_id, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `comment_id` must be of type `str`, but got value `{commend_id}` of type `{type(comment_id).__name__}`"
             )
         if not isinstance(target_type, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `target_type` must be of type `str`, but got value `{target_type}` of type `{type(target_type).__name__}`"
             )
         if target_type not in ("User", "Discussion", "Experiment"):
@@ -745,23 +745,23 @@ class User:
             _api_result: 物实api返回体结构
         """
         if not isinstance(target_id, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `target_id` must be of type `str`, but got value `{target_id}` of type `{type(target_id).__name__}`"
             )
         if not isinstance(target_type, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `target_type` must be of type `str`, but got value `{target_type}` of type `{type(target_type).__name__}`"
             )
         if not isinstance(take, int):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `take` must be of type `int`, but got value `{take}` of type `{type(take).__name__}`"
             )
         if not isinstance(skip, int):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `skip` must be of type `int`, but got value `{skip}` of type `{type(skip).__name__}`"
             )
         if not isinstance(comment_id, (str, type(None))):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `comment_id` must be of type `str` or None, but got value `{comment_id}` of type `{type(comment_id).__name__}`"
             )
         if target_type not in ("User", "Discussion", "Experiment"):
@@ -810,11 +810,11 @@ class User:
             _api_result: 物实api返回体结构
         """
         if not isinstance(content_id, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `content_id` must be of type `str`, but got value `{content_id}` of type `{type(content_id).__name__}`"
             )
         if not isinstance(category, Category):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `category` must be an instance of Category enum, but got value `{category}` of type `{type(category).__name__}`"
             )
 
@@ -858,11 +858,11 @@ class User:
             _api_result: 物实api返回体结构
         """
         if not isinstance(content_id, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `content_id` must be of type `str`, but got value `{content_id}` of type `{type(content_id).__name__}`"
             )
         if not isinstance(category, Category):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `category` must be an instance of Category enum, but got value `{category}` of type `{type(category).__name__}`"
             )
 
@@ -896,7 +896,7 @@ class User:
             _api_result: 物实api返回体结构
         """
         if not isinstance(name, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `name` must be of type `str`, but got value `{name}` of type `{type(name).__name__}`"
             )
         response = requests.post(
@@ -924,7 +924,7 @@ class User:
             _api_result: 物实api返回体结构
         """
         if not isinstance(id, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `id` must be of type `str`, but got value `{id}` of type `{type(id).__name__}`"
             )
         response = requests.post(
@@ -960,11 +960,11 @@ class User:
             Only for compatibility, use `get_user_by_id` or `get_user_by_name` is recommended
         """
         if not isinstance(msg, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `msg` must be of type `str`, but got value `{msg}` of type {type(msg).__name__}`"
             )
         if not isinstance(get_user_mode, enums.GetUserMode):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `get_user_mode` must be an instance of type "
                 f"`physicsLab.enums.GetUserMode`, but got value `{get_user_mode}` of type {type(get_user_mode).__name__}`"
             )
@@ -1021,19 +1021,19 @@ class User:
             _api_result: 物实api返回体结构
         """
         if not isinstance(content_id, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `content_id` must be of type `str`, but got value `{content_id}` of type `{type(content_id).__name__}`"
             )
         if not isinstance(category, Category):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `category` must be an instance of Category enum, but got value `{category}` of type `{type(category).__name__}`"
             )
         if not isinstance(status, bool):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `status` must be of type `bool`, but got value `{status}` of type `{type(status).__name__}`"
             )
         if not isinstance(star_type, int):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `star_type` must be of type `int`, but got value `{star_type}` of type `{type(star_type).__name__}`"
             )
         if star_type not in (0, 1):
@@ -1088,15 +1088,15 @@ class User:
         if policy is None or authorization is None:
             raise RuntimeError("Sorry, Physics-Lab-AR can't upload this iamge")
         if not isinstance(policy, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `policy` must be of type `str`, but got value `{policy}` of type `{type(policy).__name__}`"
             )
         if not isinstance(authorization, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `authorization` must be of type `str`, but got value `{authorization}` of type `{type(authorization).__name__}`"
             )
         if not isinstance(image_path, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `image_path` must be of type `str`, but got value `{image_path}` of type `{type(image_path).__name__}`"
             )
         if not os.path.exists(image_path) or not os.path.isfile(image_path):
@@ -1138,7 +1138,7 @@ class User:
             _api_result: 物实api返回体结构
         """
         if not isinstance(message_id, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `message_id` must be of type `str`, but got value `{message_id}` of type `{type(message_id).__name__}`"
             )
 
@@ -1179,19 +1179,19 @@ class User:
             _api_result: 物实api返回体结构
         """
         if category_id not in (0, 1, 2, 3, 4, 5):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `category_id` must be an integer within [0, 5], but got value `{category_id}` of type `{category_id}`"
             )
         if not isinstance(skip, int):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `skip` must be of type `int`, but got value `{skip}` of type `{type(skip).__name__}`"
             )
         if not isinstance(take, int):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `take` must be of type `int`, but got value `{take}` of type `{type(take).__name__}`"
             )
         if not isinstance(no_templates, bool):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `no_templates` must be of type `bool`, but got value `{no_templates}` of type `{type(no_templates).__name__}`"
             )
 
@@ -1242,19 +1242,19 @@ class User:
             _api_result: 物实api返回体结构
         """
         if not isinstance(content_id, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `content_id` must be of type `str`, but got value `{content_id}` of type `{type(content_id).__name__}`"
             )
         if not isinstance(category, Category):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `category` must be an instance of Category enum, but got value `{category}` of type `{type(category).__name__}`"
             )
         if not isinstance(skip, int):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `skip` must be of type `int`, but got value `{skip}` of type `{type(skip).__name__}`"
             )
         if not isinstance(take, int):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `take` must be of type `int`, but got value `{take}` of type `{type(take).__name__}`"
             )
 
@@ -1311,15 +1311,15 @@ class User:
                 f"Parameter `display_type` must be one of ['Follower', 'Following'], but got value `{display_type}` of type `{display_type}`"
             )
         if not isinstance(user_id, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `user_id` must be of type `str`, but got value `{user_id}` of type `{type(user_id).__name__}`"
             )
         if not isinstance(skip, int):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `skip` must be of type `int`, but got value `{skip}` of type `{type(skip).__name__}`"
             )
         if not isinstance(take, int):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `take` must be of type `int`, but got value `{take}` of type `{type(take).__name__}`"
             )
 
@@ -1371,11 +1371,11 @@ class User:
             _api_result: 物实api返回体结构
         """
         if not isinstance(target_id, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `target_id` must be of type `str`, but got value `{target_id}` of type `{type(target_id).__name__}`"
             )
         if not isinstance(action, bool):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `action` must be of type `bool`, but got value `{action}` of type `{type(action).__name__}`"
             )
 
@@ -1409,7 +1409,7 @@ class User:
             _api_result: 物实api返回体结构
         """
         if not isinstance(nickname, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `nickname` must be of type `str`, but got value `{nickname}` of type {type(nickname).__name__}`"
             )
 
@@ -1441,7 +1441,7 @@ class User:
             _api_result: 物实api返回体结构
         """
         if not isinstance(target, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `target` must be of type `str`, but got value `{target}` of type `{type(target).__name__}`"
             )
 
@@ -1474,11 +1474,11 @@ class User:
             _api_result: 物实api返回体结构
         """
         if not isinstance(activity_id, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `activity_id` must be of type `str`, but got value `{activity_id}` of type `{type(activity_id).__name__}`"
             )
         if not isinstance(index, int):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter `index` must be of type `int`, but got value `{index}` of type `{type(index).__name__}`"
             )
         if index < 0:
@@ -1519,15 +1519,15 @@ class User:
             _api_result: 物实api返回体结构
         """
         if not isinstance(target_id, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter target_id must be of type `str`, but got value `{target_id}` of type `{type(target_id).__name__}`"
             )
         if not isinstance(reason, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter reason must be of type `str`, but got value `{reason}` of type `{type(reason).__name__}`"
             )
         if not isinstance(length, int):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter length must be of type `int`, but got value `{length}` of type `{type(length).__name__}`"
             )
 
@@ -1566,11 +1566,11 @@ class User:
             _api_result: 物实api返回体结构
         """
         if not isinstance(target_id, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter target_id must be of type `str`, but got value `{target_id}` of type `{type(target_id).__name__}`"
             )
         if not isinstance(reason, str):
-            errors.type_error(
+            raise TypeError(
                 f"Parameter reason must be of type `str`, but got value `{reason}` of type `{type(reason).__name__}`"
             )
 
@@ -1623,11 +1623,11 @@ def anonymous_login() -> User:
 def email_login(email: str, password: str) -> User:
     """通过邮箱登录物实"""
     if not isinstance(email, str):
-        errors.type_error(
+        raise TypeError(
             f"Parameter email must be of type `str`, but got value {email} of type `{type(email).__name__}`"
         )
     if not isinstance(password, str):
-        errors.type_error(
+        raise TypeError(
             f"Parameter password must be of type `str`, but got value {password} of type `{type(password).__name__}`"
         )
 
@@ -1659,11 +1659,11 @@ def email_login(email: str, password: str) -> User:
 def token_login(token: str, auth_code: str) -> User:
     """通过token登录物实"""
     if not isinstance(token, str):
-        errors.type_error(
+        raise TypeError(
             f"Parameter email must be of type `str`, but got value {token} of type `{type(token).__name__}`"
         )
     if not isinstance(auth_code, str):
-        errors.type_error(
+        raise TypeError(
             f"Parameter password must be of type `str`, but got value {auth_code} of type `{type(auth_code).__name__}`"
         )
 

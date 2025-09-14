@@ -61,7 +61,7 @@ class _MemsBase(CircuitBase):
     @final
     def ranges(self, value: num_type) -> num_type:
         if not isinstance(value, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"ranges must be of type `int | float`, but got value {value} of type `{type(value).__name__}`"
             )
 
@@ -80,7 +80,7 @@ class _MemsBase(CircuitBase):
     @final
     def shifting(self, value: num_type) -> num_type:
         if not isinstance(value, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"shifting must be of type `int | float`, but got value {value} of type `{type(value).__name__}`"
             )
 
@@ -99,7 +99,7 @@ class _MemsBase(CircuitBase):
     def response_factor(self, value: num_type) -> num_type:
         """响应系数"""
         if not isinstance(value, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"response_factor must be of type `int | float`, but got value {value} of type `{type(value).__name__}`"
             )
 

@@ -382,7 +382,7 @@ class Battery_Source(_TwoPinMixIn):
     @voltage.setter
     def voltage(self, value: num_type) -> num_type:
         if not isinstance(value, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"voltage must be of type `int | float`, but got value `{value}` of type `{type(value).__name__}`"
             )
 
@@ -398,7 +398,7 @@ class Battery_Source(_TwoPinMixIn):
     @internal_resistance.setter
     def internal_resistance(self, value: num_type) -> num_type:
         if not isinstance(value, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"internal_resistance must be of type `int | float`, but got value `{value}` of type `{type(value).__name__}`"
             )
 
@@ -538,7 +538,7 @@ class Resistor(_TwoPinMixIn):
     @resistance.setter
     def resistance(self, value: num_type) -> num_type:
         if not isinstance(value, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"resistance must be of type `int | float`, but got value `{value}` of type `{type(value).__name__}`"
             )
 
@@ -917,7 +917,7 @@ class Resistance_Box(CircuitBase):
     @resistance.setter
     def resistance(self, value: num_type) -> num_type:
         if not isinstance(value, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"resistance must be of type `int | float`, but got {type(value).__name__}"
             )
 

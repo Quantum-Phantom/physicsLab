@@ -27,7 +27,7 @@ class _LogicBase(CircuitBase):
     @final
     def high_level(self, value) -> num_type:
         if not isinstance(value, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"high_level must be of type `int | float`, but got value `{value}` of type `{type(value).__name__}`"
             )
         if self.properties["低电平"] is not Generate and self.low_level > value:
@@ -48,7 +48,7 @@ class _LogicBase(CircuitBase):
     @final
     def low_level(self, value) -> num_type:
         if not isinstance(value, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"low_level must be of type `int | float`, but got value `{value}` of type `{type(value).__name__}`"
             )
         if self.properties["高电平"] is not Generate and value > self.high_level:
@@ -112,7 +112,7 @@ class Logic_Input(_LogicBase):
     @final
     def output_status(self, value: bool) -> bool:
         if not isinstance(value, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"output_status must be of type `bool`, but got value `{value}` of type `{type(value).__name__}`"
             )
         self.properties["开关"] = int(value)
@@ -1289,7 +1289,7 @@ class Schmitt_Trigger(CircuitBase):
     @high_level.setter
     def high_level(self, value: num_type) -> num_type:
         if not isinstance(value, (int, float)):
-            errors.type_error(
+            raise TypeError(
                 f"high_level must be of type `int | float`, but got value `{value}` of type `{type(value).__name__}`"
             )
 
@@ -1311,7 +1311,7 @@ class Schmitt_Trigger(CircuitBase):
         # None means auto derivation
         # TODO maybe we should use physicsLab.auto instead of None
         if not isinstance(value, (int, float, type(None))):
-            errors.type_error(
+            raise TypeError(
                 f"low_level must be of type `Optional[int | float]`, but got value `{value}` of type `{type(value).__name__}`"
             )
 
@@ -1336,7 +1336,7 @@ class Schmitt_Trigger(CircuitBase):
     @inverted.setter
     def inverted(self, value: bool) -> bool:
         if not isinstance(value, bool):
-            errors.type_error(
+            raise TypeError(
                 f"inverted must be of type `bool`, but got value `{value}` of type `{type(value).__name__}`"
             )
 
