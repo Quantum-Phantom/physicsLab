@@ -1,5 +1,6 @@
 import os
 import sys
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from test_tool import Timer
@@ -21,7 +22,7 @@ with Timer():
         category="User",
         max_workers=32,
     ):
-        with open(f"images/{counter}.png", 'wb') as f:
+        with open(f"images/{counter}.png", "wb") as f:
             f.write(img)
         counter += 1
 

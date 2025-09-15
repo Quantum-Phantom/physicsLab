@@ -110,6 +110,7 @@ class _Experiment:
     CameraSave: dict
     VisionCenter: _tools.position
     TargetRotation: _tools.position
+    # Only for compaatibility
     experiment_type: ExperimentType
 
     def __init__(

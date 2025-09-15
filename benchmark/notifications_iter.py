@@ -1,5 +1,6 @@
 import os
 import sys
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from test_tool import Timer
@@ -11,9 +12,7 @@ user = web.token_login(
 )
 
 with Timer():
-    for i, _ in enumerate(web.NotificationsIter(
-        user, category_id=5
-    )):
+    for i, _ in enumerate(web.NotificationsIter(user, category_id=5)):
         if i == 10000:
             break
 
